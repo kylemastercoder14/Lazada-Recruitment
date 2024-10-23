@@ -4,6 +4,7 @@ import EducationInfo from "@/components/onboarding/education-info";
 import PersonalInfo from "@/components/onboarding/personal-info";
 import ProgressBar from "@/components/onboarding/progress-bar";
 import QualificationInfo from "@/components/onboarding/qualification-info";
+import ReviewSubmit from "@/components/onboarding/review-submit";
 import WorkInfo from "@/components/onboarding/work-info";
 import useApplicationAppStore from "@/lib/store";
 import React from "react";
@@ -22,13 +23,15 @@ const Onboarding = () => {
         return <WorkInfo />;
       case 4:
         return <EducationInfo />;
+      case 5:
+        return <ReviewSubmit />;
       default:
         return null;
     }
   };
 
   return (
-    <div className="relative">
+    <div className="relative pb-20">
       {/* Blue Background Box */}
       <div className="bg-blue-600 -z-10 absolute w-full h-60 top-0 inset-x-0"></div>
 

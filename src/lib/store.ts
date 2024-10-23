@@ -26,7 +26,7 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
     personalInfo: {
       name: "",
       email: "",
-      age: 0,
+      age: 18,
       sex: "",
       houseNumber: "",
       region: "",
@@ -111,7 +111,7 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
           personalInfo: {
             name: "",
             email: "",
-            age: 0,
+            age: 18,
             sex: "",
             houseNumber: "",
             region: "",
