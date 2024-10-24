@@ -1,11 +1,20 @@
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
 import React from "react";
+import { AppSidebar } from "../_components/app-sidebar";
+import Header from "../_components/header";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <p>Sidebar</p>
-      {children}
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <Header />
+        {children}
+      </SidebarInset>
+    </SidebarProvider>
   );
 };
 
