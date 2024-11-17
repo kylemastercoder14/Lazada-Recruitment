@@ -7,17 +7,18 @@ import useApplicationAppStore from "@/lib/store";
 import { educationInfoSchema } from "@/lib/validators";
 import { Separator } from "../ui/separator";
 import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const EducationInfo = () => {
   const { nextStep, prevStep, formData, setEducationInfo } =
     useApplicationAppStore();
   const [errors, setErrors] = useState<any>({});
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setErrors((prev: any) => ({ ...prev, [e.target.name]: "" }));
-    setEducationInfo({ [e.target.name]: e.target.value });
-  };
   const handleSelectChange = (name: string, value: string) => {
     setErrors((prev: any) => ({ ...prev, [name]: "" }));
     setEducationInfo({ [name]: value });
@@ -62,21 +63,25 @@ const EducationInfo = () => {
                   errors.degreeStatus ? "border-red-500 focus:ring-red-500" : ""
                 }`}
               >
-                <SelectValue placeholder="Select degree/undegraduate status" />
+                <SelectValue placeholder="--Degree/Undegraduate Status--" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="High School">High School</SelectItem>
-                <SelectItem value="Vocational">Vocational</SelectItem>
-                <SelectItem value="Associate Degree (2 years)">Associate Degree (2 years)</SelectItem>
-                <SelectItem value="Bachelor's Degree (4 years)">Bachelor&apos;s Degree (4 years)</SelectItem>
-                <SelectItem value="Master's Degree (Postgraduate)">Master&apos;s Degree (Postgraduate)</SelectItem>
-                <SelectItem value="Doctoral Degree (Ph.D)">Doctoral Degree (Ph.D)</SelectItem>
+                <SelectItem value="Bachelor's Degree">
+                  Bachelor&apos;s Degree
+                </SelectItem>
+                <SelectItem value="College Undergraduate (3rd or 4th year)">
+                  College Undergraduate (3rd or 4th year)
+                </SelectItem>
+                <SelectItem value="College Undergraduate (1st or 2nd year)">
+                  College Undergraduate (1st or 2nd year)
+                </SelectItem>
+                <SelectItem value="No Degree or Dropped Out">
+                  No Degree or Dropped Out
+                </SelectItem>
               </SelectContent>
             </Select>
             {errors.degreeStatus && (
-              <p className="text-red-500 text-sm">
-                {errors.degreeStatus}
-              </p>
+              <p className="text-red-500 text-sm">{errors.degreeStatus}</p>
             )}
           </div>
           <div className="space-y-1">
@@ -88,17 +93,36 @@ const EducationInfo = () => {
               Year Graduated
               <span className="text-red-500">*</span>
             </Label>
-            <Input
-              type="number"
-              required
-              placeholder="Enter certification received if any"
-              name="yearGraduated"
-              value={formData.educationInfo.yearGraduated}
-              className={`${
-                errors.yearGraduated ? "border-red-500 focus:ring-red-500" : ""
-              }`}
-              onChange={handleChange}
-            />
+            <Select
+              defaultValue={formData.educationInfo.yearGraduated}
+              onValueChange={(value) => {
+                handleSelectChange("yearGraduated", value);
+              }}
+            >
+              <SelectTrigger
+                className={`${
+                  errors.yearGraduated
+                    ? "border-red-500 focus:ring-red-500"
+                    : ""
+                }`}
+              >
+                <SelectValue placeholder="--Year Graduated--" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Graduated within the last 5 years">
+                  Graduated within the last 5 years
+                </SelectItem>
+                <SelectItem value="Graduated 6-10 years ago">
+                  Graduated 6-10 years ago
+                </SelectItem>
+                <SelectItem value="Graduated 11+ years ago">
+                  Graduated 11+ years ago
+                </SelectItem>
+                <SelectItem value="No Degree or Dropped Out">
+                  No Degree or Dropped Out
+                </SelectItem>
+              </SelectContent>
+            </Select>
             {errors.yearGraduated && (
               <p className="text-red-500 text-sm">{errors.yearGraduated}</p>
             )}

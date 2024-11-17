@@ -15,7 +15,7 @@ model Admin {
   updatedAt DateTime @updatedAt
 }
 
-model Employee {
+model JobApplicant {
   id                   String   @id @default(cuid())
   name                 String
   email                String   @unique
@@ -24,18 +24,33 @@ model Employee {
   address              String
   contactNumber        String
   profileImage         String?
-  totalYearExperience  Int
+  totalYearExperience  String
   highestRoleAchieved  String
   fieldOfExpertise     String
   awards               String?
   companyName          String
   jobPosition          String
-  yearsWorkedInCompany Int
+  yearsWorkedInCompany String
   certificate          String?
   logisticsCompany     String
-  logisticsYearsWorked Int
+  logisticsYearsWorked String
   degreeStatus         String
-  yearGraduated        Int
+  yearGraduated        String
+
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+
+  jobApplication JobApplication[]
+}
+
+model JobApplication {
+  id              String       @id @default(cuid())
+  jobApplicantId  String
+  jobApplicant    JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  positionApplied String
+  applicationDate DateTime
+  status          String       @default("Pending")
+  
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
 }

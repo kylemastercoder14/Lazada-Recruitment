@@ -19,7 +19,7 @@ export const personalInfoSchema = z.object({
 });
 
 export const qualificationSkillsInfoSchema = z.object({
-  totalYearsExperience: z.coerce.number().min(1, {
+  totalYearsExperience: z.string().min(1, {
     message: "Years of experience is required",
   }),
   highestRoleAchieved: z.string().min(1, {
@@ -38,15 +38,18 @@ export const workExperienceInfoSchema = z.object({
   jobPosition: z.string().min(1, {
     message: "Job position is required",
   }),
-  yearsWorkedInCompany: z.coerce.number().min(1, {
+  yearsWorkedInCompany: z.string().min(1, {
     message: "Years worked in company is required",
   }),
   certificate: z.string().optional(),
   logisticsCompany: z.string().min(1, {
     message: "Logistics company is required",
   }),
-  logisticsYearsWorked: z.coerce.number().min(1, {
+  logisticsYearsWorked: z.string().min(1, {
     message: "Years worked in logistics company is required",
+  }),
+  positionApplying: z.string().min(1, {
+    message: "Position applying is required",
   }),
 });
 
@@ -54,7 +57,7 @@ export const educationInfoSchema = z.object({
   degreeStatus: z.string().min(1, {
     message: "Degree status is required",
   }),
-  yearGraduated: z.coerce.number().min(1, {
+  yearGraduated: z.string().min(1, {
     message: "Year graduated is required",
   }),
 });
