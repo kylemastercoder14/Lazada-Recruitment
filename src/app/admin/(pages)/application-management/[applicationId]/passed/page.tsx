@@ -6,7 +6,6 @@ import React from "react";
 interface AccountCreationProps {
   params: {
     applicationId: string;
-    applicationStatus: string;
   };
 }
 
