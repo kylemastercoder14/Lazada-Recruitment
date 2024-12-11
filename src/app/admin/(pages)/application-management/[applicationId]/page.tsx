@@ -7,10 +7,13 @@ const SpecificApplication = async ({
 }: {
   params: { applicationId: string };
 }) => {
-  const data = await db.jobApplicant.findFirst({
+  const data = await db.jobApplication.findFirst({
     where: {
       id: params.applicationId,
     },
+    include: {
+      jobApplicant: true,
+    }
   });
   return (
     <div className="flex-1 space-y-4 p-8 pt-6">

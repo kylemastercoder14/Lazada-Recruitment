@@ -6,23 +6,23 @@ import { ApplicationManagementColumn } from "./_components/column";
 import ApplicationManagementClient from "./_components/client";
 
 const ApplicationManagement = async () => {
-  const datas = await db.jobApplicant.findMany({
+  const datas = await db.jobApplication.findMany({
     orderBy: {
       createdAt: "desc",
     },
     include: {
-      jobApplication: true,
+      jobApplicant: true,
     },
   });
 
   const formattedData: ApplicationManagementColumn[] = datas.map((item) => {
     return {
       id: item.id,
-      name: item.name,
-      email: item.email,
-      imageUrl: item.profileImage ?? "",
-      status: item.jobApplication[0].status,
-      createdAt: format(item.jobApplication[0].applicationDate, "MMMM dd, yyyy"),
+      name: item.jobApplicant.name,
+      email: item.jobApplicant.email,
+      imageUrl: item.jobApplicant.profileImage ?? "",
+      status: item.status,
+      createdAt: format(item.createdAt, "MMMM dd, yyyy"),
     };
   });
   return (

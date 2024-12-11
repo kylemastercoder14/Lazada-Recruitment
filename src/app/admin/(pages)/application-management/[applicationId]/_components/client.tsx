@@ -1,11 +1,22 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
+import { passApplicant } from "@/actions/application";
+import FailModal from "@/components/modals/fail-modal";
+import AlertModal from "@/components/ui/alert-modal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { JobApplicant } from "@prisma/client";
+import { JobApplicant, JobApplication } from "@prisma/client";
 import Image from "next/image";
-import React from "react";
+import { useParams } from "next/navigation";
+import React, { useState } from "react";
+import { toast } from "sonner";
+
+interface ApplicationEvaluation extends JobApplication {
+  jobApplicant: JobApplicant;
+}
 
 const evaluateApplication = (data: JobApplicant) => {
   // Helper function to calculate points based on conditions
@@ -217,41 +228,87 @@ const evaluateApplication = (data: JobApplicant) => {
   };
 };
 
-const SpecificApplicationClient = ({ data }: { data: JobApplicant }) => {
-  const { totalScore, status, details } = evaluateApplication(data);
+const SpecificApplicationClient = ({
+  data,
+}: {
+  data: ApplicationEvaluation;
+}) => {
+  const [passOpen, setPassOpen] = useState(false);
+  const [failOpen, setFailOpen] = useState(false);
+  const [passLoading, setPassLoading] = useState(false);
+  const { totalScore, status, details } = evaluateApplication(
+    data.jobApplicant
+  );
+  const params = useParams();
+
+  const handlePass = async () => {
+    setPassLoading(true);
+    try {
+      if (typeof params.applicationId === "string") {
+        const response = await passApplicant(params.applicationId);
+        if (response.error) {
+          toast.error(response.error);
+        } else {
+          toast.success(response.success);
+          window.location.assign(
+            `/admin/application-management/${params.applicationId}/passed`
+          );
+        }
+      } else {
+        toast.error("Invalid application ID");
+      }
+    } catch (error: any) {
+      toast.error(error);
+    } finally {
+      setPassLoading(false);
+      setPassOpen(false);
+    }
+  };
+
   return (
     <>
+      <FailModal data={data} isOpen={failOpen} onClose={() => setFailOpen(false)} />
+      <AlertModal
+        onConfirm={handlePass}
+        loading={passLoading}
+        onClose={() => setPassOpen(false)}
+        title="Are you sure you want to pass this application?"
+        isOpen={passOpen}
+      />
       <h3 className="text-xl font-semibold text-blue-700">
-        {data.name} Application Evaluation
+        {data.jobApplicant.name} Application Evaluation
       </h3>
       <Card className="mt-3">
         <CardContent className="p-5">
           <p className="text-blue-700 font-semibold">Personal Information</p>
           <Image
             className="mt-2 rounded-full"
-            src={data.profileImage || ""}
-            alt={data.name}
+            src={data.jobApplicant.profileImage || ""}
+            alt={data.jobApplicant.name}
             width={100}
             height={100}
           />
           <p className="mt-3">
-            <span className="font-semibold">Name:</span> {data.name}
+            <span className="font-semibold">Name:</span>{" "}
+            {data.jobApplicant.name}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Email:</span> {data.email}
+            <span className="font-semibold">Email:</span>{" "}
+            {data.jobApplicant.email}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Age:</span> {data.age}
+            <span className="font-semibold">Age:</span> {data.jobApplicant.age}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Sex:</span> {data.sex}
+            <span className="font-semibold">Sex:</span> {data.jobApplicant.sex}
           </p>
           <p className="mt-1">
-            <span className="font-semibold">Address:</span> {data.address}
+            <span className="font-semibold">Address:</span>{" "}
+            {data.jobApplicant.address}
           </p>
           <p className="mt-1">
             <span className="font-semibold">Contact Number:</span>{" "}
-            {data.contactNumber}
+            {data.jobApplicant.contactNumber}
           </p>
           <Separator className="my-5" />
           <p className="text-blue-700 font-semibold mt-5">
@@ -259,28 +316,28 @@ const SpecificApplicationClient = ({ data }: { data: JobApplicant }) => {
           </p>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Experience (Years):</span>
-            <Input readOnly value={data.totalYearExperience} />
+            <Input readOnly value={data.jobApplicant.totalYearExperience} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.qualificationPoints.experience}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Highest Role Achieved:</span>
-            <Input readOnly value={data.highestRoleAchieved} />
+            <Input readOnly value={data.jobApplicant.highestRoleAchieved} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.qualificationPoints.role}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Field of Expertise:</span>
-            <Input readOnly value={data.fieldOfExpertise} />
+            <Input readOnly value={data.jobApplicant.fieldOfExpertise} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.qualificationPoints.expertise}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Awards (if any):</span>
-            <Input readOnly value={data.awards ?? "N/A"} />
+            <Input readOnly value={data.jobApplicant.awards ?? "N/A"} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.qualificationPoints.awards}
             </span>
@@ -291,28 +348,28 @@ const SpecificApplicationClient = ({ data }: { data: JobApplicant }) => {
           </p>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Company Name:</span>
-            <Input readOnly value={data.companyName} />
+            <Input readOnly value={data.jobApplicant.companyName} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.workPoints.company}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Job Role/Position:</span>
-            <Input readOnly value={data.jobPosition} />
+            <Input readOnly value={data.jobApplicant.jobPosition} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.workPoints.role}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Years of Experience:</span>
-            <Input readOnly value={data.yearsWorkedInCompany} />
+            <Input readOnly value={data.jobApplicant.yearsWorkedInCompany} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.workPoints.years}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Certification Received:</span>
-            <Input readOnly value={data.certificate ?? "N/A"} />
+            <Input readOnly value={data.jobApplicant.certificate ?? "N/A"} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.workPoints.certificate}
             </span>
@@ -323,14 +380,14 @@ const SpecificApplicationClient = ({ data }: { data: JobApplicant }) => {
           </p>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Company Name:</span>
-            <Input readOnly value={data.logisticsCompany} />
+            <Input readOnly value={data.jobApplicant.logisticsCompany} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.logisticsPoints.company}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Years of Experience:</span>
-            <Input readOnly value={data.logisticsYearsWorked} />
+            <Input readOnly value={data.jobApplicant.logisticsYearsWorked} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.logisticsPoints.years}
             </span>
@@ -341,14 +398,14 @@ const SpecificApplicationClient = ({ data }: { data: JobApplicant }) => {
           </p>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Degree/Undergraduate Status:</span>
-            <Input readOnly value={data.degreeStatus} />
+            <Input readOnly value={data.jobApplicant.degreeStatus} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.educationPoints.degree}
             </span>
           </div>
           <div className="mt-3 flex flex-col gap-1">
             <span className="font-semibold">Year Graduated:</span>
-            <Input readOnly value={data.yearGraduated} />
+            <Input readOnly value={data.jobApplicant.yearGraduated} />
             <span className="text-blue-700 font-semibold text-xs">
               Points: {details.educationPoints.year}
             </span>
@@ -399,11 +456,23 @@ const SpecificApplicationClient = ({ data }: { data: JobApplicant }) => {
             </div>
           </div>
           <div className="mt-5 flex items-center justify-end gap-2">
-            <Button size="sm">Mark as Passed</Button>
-            <Button size="sm" variant="destructive">
+            <Button
+              disabled={data.status === "Passed" || data.status === "Failed"}
+              size="sm"
+              onClick={() => setPassOpen(true)}
+            >
+              Mark as Passed
+            </Button>
+            <Button
+              disabled={data.status === "Passed" || data.status === "Failed"}
+              onClick={() => setFailOpen(true)}
+              size="sm"
+              variant="destructive"
+            >
               Mark as Failed
             </Button>
             <Button
+              onClick={() => window.history.back()}
               size="sm"
               variant="outline"
               className="bg-black text-white hover:bg-black/80 hover:text-white"

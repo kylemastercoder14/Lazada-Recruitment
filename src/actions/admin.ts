@@ -63,3 +63,8 @@ export const loginAdmin = async (values: z.infer<typeof formSchema>) => {
     throw error;
   }
 };
+
+
+export const logout = async () => {
+  (await cookies()).set("Authorization", "", { maxAge: 0, path: "/" });
+};

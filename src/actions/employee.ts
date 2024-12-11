@@ -44,3 +44,26 @@ export const createEmployee = async (formData: any) => {
     throw new Error("Failed to create employee.");
   }
 };
+
+export const login = async (accountNumber: string, password: string) => {
+  try {
+    const employee = await db.applicantAccount.findFirst({
+      where: {
+        accountNumber,
+        password,
+      },
+    });
+    
+    if (!employee) {
+      return { error: "Invalid account number or password." };
+    }
+
+    return {
+      success: "Login successful, redirecting to dashboard...",
+      employee,
+    };
+  } catch (error) {
+    console.error("Error logging in:", error);
+    throw new Error("Failed to login.");
+  }
+};

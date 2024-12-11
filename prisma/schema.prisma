@@ -16,9 +16,9 @@ model Admin {
 }
 
 model JobApplicant {
-  id                   String   @id @default(cuid())
+  id                   String  @id @default(cuid())
   name                 String
-  email                String   @unique
+  email                String  @unique
   age                  Int
   sex                  String
   address              String
@@ -37,10 +37,22 @@ model JobApplicant {
   degreeStatus         String
   yearGraduated        String
 
-  createdAt            DateTime @default(now())
-  updatedAt            DateTime @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  jobApplication JobApplication[]
+  jobApplication   JobApplication[]
+  applicantAccount ApplicantAccount[]
+}
+
+model ApplicantAccount {
+  id            String   @id @default(cuid())
+  accountNumber String   @unique
+  password      String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  jobApplicantId String
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
 }
 
 model JobApplication {
@@ -50,7 +62,7 @@ model JobApplication {
   positionApplied String
   applicationDate DateTime
   status          String       @default("Pending")
-  
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

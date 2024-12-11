@@ -54,15 +54,16 @@ export const columns: ColumnDef<ApplicationManagementColumn>[] = [
         | "secondary"
         | "outline"
         | "destructive"
+        | "success"
         | null
         | undefined = "default";
 
-      if (status === "Pending") {
+      if (status === "Failed") {
         variant = "destructive";
-      } else if (status === "On-going") {
-        variant = "secondary";
-      } else if (status === "Completed") {
+      } else if (status === "Pending") {
         variant = "default";
+      } else if (status === "Passed") {
+        variant = "success";
       }
 
       return <Badge variant={variant}>{status}</Badge>;
@@ -72,9 +73,9 @@ export const columns: ColumnDef<ApplicationManagementColumn>[] = [
     accessorKey: "createdAt",
     header: "Date Created",
   },
-    {
-      id: "actions",
-      header: "Actions",
-      cell: ({ row }) => <CellAction data={row.original} />,
-    },
+  {
+    id: "actions",
+    header: "Actions",
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
 ];
