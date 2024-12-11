@@ -6,7 +6,7 @@ import React from "react";
 
 const AccountCreation = async ({
   params,
-}: GetServerSidePropsContext<{ applicationId: string }>) => {
+}: GetServerSidePropsContext<{ applicationId: string, applicationStatus: string }>) => {
   const data = await db.jobApplication.findFirst({
     where: {
       id: params?.applicationId,
