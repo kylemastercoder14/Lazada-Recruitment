@@ -55,13 +55,13 @@ export const sendEmail = async (
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "kylemastercoder14@gmail.com",
-      pass: "nyqdxtgnqtzxmtyx",
+      user: "christian12345montero@gmail.com",
+      pass: "xyfmpnnnrmewfnys",
     },
   });
 
   const message = {
-    from: "kylemastercoder14@gmail.com",
+    from: "christian12345montero@gmail.com",
     to: email,
     subject: "Lazada Expedise Account Creation",
     text: `Your account has been created. Your account number is ${accountNumber} and your password is ${password}.`,
@@ -172,13 +172,13 @@ export const sendEmailFail = async (
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "kylemastercoder14@gmail.com",
-      pass: "nyqdxtgnqtzxmtyx",
+      user: "christian12345montero@gmail.com",
+      pass: "xyfmpnnnrmewfnys",
     },
   });
 
   const message = {
-    from: "kylemastercoder14@gmail.com",
+    from: "christian12345montero@gmail.com",
     to: email,
     subject: "Lazada Expedise Job Application Failed",
     text: `We regret to inform you that your job application has been declined due to the following reason: ${reason}.`,
