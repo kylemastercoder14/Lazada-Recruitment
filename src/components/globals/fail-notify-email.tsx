@@ -41,8 +41,8 @@ export const LazadaFailEmail = ({ name, reason }: LazadaFailEmailProps) => (
         </Text>
         <Text style={paragraph}>
           If you have any questions or need help, please contact us at{" "}
-          <Link href="mailto:kylemastercoder14@gmail.com" style={code}>
-            kylemastercoder14@gmail.com
+          <Link href="mailto:christian12345montero@gmail.com" style={code}>
+            christian12345montero@gmail.com
           </Link>
         </Text>
         <Hr style={hr} />

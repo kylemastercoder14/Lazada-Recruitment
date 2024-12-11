@@ -62,8 +62,8 @@ export const LazadaLoginCodeEmail = ({
         <Text style={paragraph}>Please change your password after you successfully logged in.</Text>
         <Text style={paragraph}>
           If you have any questions or need help, please contact us at{" "}
-          <Link href="mailto:kylemastercoder14@gmail.com" style={code}>
-            kylemastercoder14@gmail.com
+          <Link href="mailto:christian12345montero@gmail.com" style={code}>
+            christian12345montero@gmail.com
           </Link>
         </Text>
         <Hr style={hr} />
