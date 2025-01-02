@@ -245,7 +245,7 @@ const SpecificApplicationClient = ({
     setPassLoading(true);
     try {
       if (typeof params.applicationId === "string") {
-        const response = await passApplicant(params.applicationId);
+        const response = await passApplicant(params.applicationId, totalScore, status, data.jobApplicantId);
         if (response.error) {
           toast.error(response.error);
         } else {

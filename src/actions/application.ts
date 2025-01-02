@@ -5,8 +5,14 @@ import { LazadaLoginCodeEmailHTML } from "@/components/globals/account-notify-em
 import { LazadaFailEmailHTML } from "@/components/globals/fail-notify-email";
 import db from "@/lib/db";
 import nodemailer from "nodemailer";
+import { SendScheduleEmailHTML } from "@/components/globals/send-schedule-email";
 
-export const passApplicant = async (id: string) => {
+export const passApplicant = async (
+  id: string,
+  totalScore: number,
+  status: string,
+  jobApplicantId: string
+) => {
   if (!id) {
     return { error: "No ID provided" };
   }
@@ -28,6 +34,35 @@ export const passApplicant = async (id: string) => {
       },
       data: {
         status: "Passed",
+      },
+    });
+
+    await db.applicantScore.create({
+      data: {
+        jobApplicantId: jobApplicantId,
+        score: totalScore,
+        status: status,
+      },
+    });
+
+    let interviewSchedule: string | null = null;
+
+    if (totalScore >= 90) {
+      const today = new Date();
+      today.setDate(today.getDate() + 2);
+      interviewSchedule = today.toISOString().split("T")[0];
+    } else if (totalScore >= 70) {
+      const today = new Date();
+      today.setDate(today.getDate() + 5);
+      interviewSchedule = today.toISOString().split("T")[0];
+    } else {
+      interviewSchedule = "TBA";
+    }
+
+    await db.interviewSchedule.create({
+      data: {
+        jobApplicantId: jobApplicantId,
+        interviewDate: new Date(interviewSchedule),
       },
     });
 
@@ -188,6 +223,76 @@ export const sendEmailFail = async (
   try {
     await transporter.sendMail(message);
     return { success: true };
+  } catch (error) {
+    console.error("Error sending notification", error);
+    return { message: "An error occurred. Please try again." };
+  }
+};
+
+export const updateSchedule = async (data: {
+  interviewDate: string;
+  id: string;
+}) => {
+  if (!data.interviewDate) {
+    return { error: "No interview date provided" };
+  }
+
+  try {
+    await db.interviewSchedule.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        interviewDate: new Date(data.interviewDate),
+      },
+    });
+
+    return { success: "Interview schedule updated successfully" };
+  } catch (error) {
+    console.error("Error updating interview schedule:", error);
+    return { error: "Failed to update interview schedule" };
+  }
+};
+
+export const sendSchedule = async (
+  name: string,
+  interviewDate: string,
+  email: string,
+  accountNumber: string
+) => {
+  const htmlContent = await SendScheduleEmailHTML({
+    accountNumber,
+    name,
+    interviewDate,
+  });
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "christian12345montero@gmail.com",
+      pass: "xyfmpnnnrmewfnys",
+    },
+  });
+
+  const message = {
+    from: "christian12345montero@gmail.com",
+    to: email,
+    subject: "Lazada Expedise Interview Schedule",
+    text: `Your interview schedule has been set. Please be ready on ${interviewDate}.`,
+    html: htmlContent,
+  };
+
+  try {
+    await transporter.sendMail(message);
+
+    await db.notification.create({
+      data: {
+        title: "Interview Schedule",
+        description: `An interview schedule has been sent to your email.`,
+        accountNumber: accountNumber,
+      },
+    });
+    return { success: "Interview schedule has been sent." };
   } catch (error) {
     console.error("Error sending notification", error);
     return { message: "An error occurred. Please try again." };

@@ -40,8 +40,10 @@ model JobApplicant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  jobApplication   JobApplication[]
-  applicantAccount ApplicantAccount[]
+  jobApplication    JobApplication[]
+  applicantAccount  ApplicantAccount[]
+  applicantScore    ApplicantScore[]
+  interviewSchedule InterviewSchedule[]
 }
 
 model ApplicantAccount {
@@ -52,7 +54,9 @@ model ApplicantAccount {
   updatedAt     DateTime @updatedAt
 
   jobApplicantId String
-  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant   JobApplicant   @relation(fields: [jobApplicantId], references: [id])
+  watchedVideo   WatchedVideo[]
+  notification   Notification[]
 }
 
 model JobApplication {
@@ -65,4 +69,56 @@ model JobApplication {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ApplicantScore {
+  id             String       @id @default(cuid())
+  jobApplicantId String
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  score          Int
+  status         String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model VideoTraining {
+  id           String         @id @default(cuid())
+  title        String
+  description  String
+  videoUrl     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  watchedVideo WatchedVideo[]
+}
+
+model WatchedVideo {
+  id               String           @id @default(cuid())
+  applicantId      String
+  applicantAccount ApplicantAccount @relation(fields: [applicantId], references: [id])
+  videoTrainingId  String
+  videoTraining    VideoTraining    @relation(fields: [videoTrainingId], references: [id])
+  status           String
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+}
+
+model InterviewSchedule {
+  id             String       @id @default(cuid())
+  jobApplicantId String
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  interviewDate  DateTime
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  accountNumber    String
+  applicantAccount ApplicantAccount @relation(fields: [accountNumber], references: [accountNumber])
 }
