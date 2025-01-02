@@ -1,35 +1,21 @@
 "use client";
 
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { ColumnDef } from "@tanstack/react-table";
 // import { CellAction } from "./cell-action";
-import { Badge } from "@/components/ui/badge";
-import Image from "next/image";
 import { CellAction } from "./cell-action";
-import Link from 'next/link';
 
-export type VideoTrainingsColumn = {
+export type QuestionnaireCreationColumn = {
   id: string;
   title: string;
-  videoUrl: string;
   description: string;
-  watchedVideo: number;
+  howManyQuestions: number;
   createdAt: string;
 };
 
-export const columns: ColumnDef<VideoTrainingsColumn>[] = [
+export const columns: ColumnDef<QuestionnaireCreationColumn>[] = [
   {
     accessorKey: "title",
     header: "Title",
-  },
-  {
-    accessorKey: "videoUrl",
-    header: "Video URL",
-    cell: ({ row }) => (
-      <div className="w-96 truncate" title={row.original.videoUrl}>
-        <Link className='hover:underline text-primary' href={row.original.videoUrl}>{row.original.videoUrl}</Link>
-      </div>
-    ),
   },
   {
     accessorKey: "description",
@@ -41,8 +27,8 @@ export const columns: ColumnDef<VideoTrainingsColumn>[] = [
     ),
   },
   {
-    accessorKey: "watchedVideo",
-    header: "Watched Video",
+    accessorKey: "howManyQuestions",
+    header: "Questions",
   },
   {
     accessorKey: "createdAt",

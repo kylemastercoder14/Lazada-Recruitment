@@ -2,18 +2,18 @@
 
 import React from "react";
 import { DataTable } from "@/components/ui/data-table";
-import { ApplicationManagementColumn, columns } from "./column";
+import { VideoTrainingsColumn, columns } from "./column";
 
-interface ApplicationManagementClientProps {
-  data: ApplicationManagementColumn[];
+interface VideoTrainingsClientProps {
+  data: VideoTrainingsColumn[];
 }
 
-const ApplicationManagementClient: React.FC<ApplicationManagementClientProps> = ({ data }) => {
+const VideoTrainingsClient: React.FC<VideoTrainingsClientProps> = ({ data }) => {
   return (
     <>
-      <DataTable searchKey="name" columns={columns} data={data} />
+      <DataTable searchKey="title" columns={columns} data={data} />
     </>
   );
 };
 
-export default ApplicationManagementClient;
+export default VideoTrainingsClient;

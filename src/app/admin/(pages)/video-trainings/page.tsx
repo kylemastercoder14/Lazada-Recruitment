@@ -4,24 +4,27 @@ import { format } from "date-fns";
 import React from "react";
 import { VideoTrainingsColumn } from "./_components/column";
 import VideoTrainingsClient from "./_components/client";
+import { Button } from "../../../../components/ui/button";
+import Link from "next/link";
+import { PlusCircle } from "lucide-react";
 
 const VideoTrainings = async () => {
-  const datas = await db.jobApplication.findMany({
+  const datas = await db.videoTraining.findMany({
     orderBy: {
       createdAt: "desc",
     },
     include: {
-      jobApplicant: true,
+      watchedVideo: true,
     },
   });
 
   const formattedData: VideoTrainingsColumn[] = datas.map((item) => {
     return {
       id: item.id,
-      name: item.jobApplicant.name,
-      email: item.jobApplicant.email,
-      imageUrl: item.jobApplicant.profileImage ?? "",
-      status: item.status,
+      title: item.title,
+      videoUrl: item.videoUrl,
+      description: item.description,
+      watchedVideo: item.watchedVideo.length,
       createdAt: format(item.createdAt, "MMMM dd, yyyy"),
     };
   });
@@ -29,9 +32,16 @@ const VideoTrainings = async () => {
     <div className="flex-1 space-y-4 p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
         <Heading
-          title="Application Management"
-          description="Manage and track job applications seamlessly. Review, filter, and process applications from candidates applying to various roles in our recruitment system."
+          title="Uploaded Video Trainings"
+          description="Manage all the video trainings uploaded by the admin here. You can view, update and delete the video trainings."
         />
+        <Link href="/admin/video-trainings/new">
+          <Button size="sm">
+            {" "}
+            <PlusCircle />
+            Add New Video
+          </Button>
+        </Link>
       </div>
       <VideoTrainingsClient data={formattedData} />
     </div>
