@@ -26,14 +26,9 @@ import { TeamSwitcher } from "./team-switcher";
 import { NavMain } from "./nav-main";
 import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
+import { Admin } from "@prisma/client";
 
-// This is sample data.
 const data = {
-  user: {
-    name: "Lazada Administrator",
-    email: "LazadaLogisticsPh",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Application Management",
@@ -84,13 +79,16 @@ const data = {
     },
     {
       title: "Report Generations",
-      url: "/admin/system-administration",
+      url: "/admin/report-generations",
       icon: ChartPie,
     },
   ],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  admin,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & { admin: Admin }) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -101,7 +99,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavProjects items={data.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={admin} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

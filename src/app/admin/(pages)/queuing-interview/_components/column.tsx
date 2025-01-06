@@ -49,9 +49,9 @@ export const columns: ColumnDef<QueuingInterviewColumn>[] = [
         | null
         | undefined = "default";
 
-      if (status === "Next Batch") {
+      if (status === "Next Batch Candidates") {
         variant = "destructive";
-      } else if (status === "Waiting") {
+      } else if (status === "To Be Announced Candidates") {
         variant = "default";
       } else if (status === "Top Candidate") {
         variant = "success";

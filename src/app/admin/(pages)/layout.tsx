@@ -1,15 +1,14 @@
-import {
-  SidebarInset,
-  SidebarProvider,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 import { AppSidebar } from "../_components/app-sidebar";
 import Header from "../_components/header";
+import { getAdminAccount } from "@/hooks/use-admin";
 
-const AdminLayout = ({ children }: { children: React.ReactNode }) => {
+const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
+  const { admin } = await getAdminAccount();
   return (
     <SidebarProvider>
-      <AppSidebar />
+      {admin && <AppSidebar admin={admin} />}
       <SidebarInset>
         <Header />
         {children}
