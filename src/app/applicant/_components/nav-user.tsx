@@ -107,7 +107,11 @@ export function NavUser({ user }: { user: ApplicantInterface }) {
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
-                <DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() =>
+                    window.location.assign("/applicant/applicant-information")
+                  }
+                >
                   <BadgeCheck />
                   Application Information
                 </DropdownMenuItem>

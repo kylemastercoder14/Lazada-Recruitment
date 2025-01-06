@@ -36,7 +36,7 @@ const data = {
   navMain: [
     {
       title: "News & Announcements",
-      url: "/applican/news-announcements",
+      url: "/applicant/news-announcements",
       icon: Megaphone,
     },
     {
