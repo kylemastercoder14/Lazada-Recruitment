@@ -1,17 +1,18 @@
 import { ArrowLeft, Eye, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import React from "react";
-import db from "../../../../../../../lib/db";
+import db from "@/lib/db";
 import { redirect } from "next/navigation";
-import { IconBadge } from "../../../../../../../components/globals/icon-badge";
+import { IconBadge } from "@/components/globals/icon-badge";
 import QuestionTitleForm from './_components/question-title-form';
 import QuestionAccessForm from './_components/question-access-form';
 
-const QuestionId = async ({
-  params,
-}: {
-  params: { questionnaireId: string; questionId: string };
-}) => {
+const QuestionId = async (
+  props: {
+    params: Promise<{ questionnaireId: string; questionId: string }>;
+  }
+) => {
+  const params = await props.params;
   const question = await db.question.findUnique({
     where: {
       id: params.questionId,

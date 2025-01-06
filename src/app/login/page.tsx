@@ -26,11 +26,11 @@ const Login = () => {
     setLoading(true);
     try {
       const response = await login(accountNumber, password);
-      if (response.success) {
-        toast.success(response.success);
-        window.location.assign("/applicant");
-      } else {
+      if (response.error) {
         toast.error(response.error);
+      } else {
+        toast.success("Login successful. Redirecting to dashboard...");
+        window.location.assign("/applicant/news-announcements");
       }
     } catch (error) {
       console.error(error);

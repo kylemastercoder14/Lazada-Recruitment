@@ -18,7 +18,7 @@ export function TeamSwitcher() {
           <div className="grid flex-1 text-left text-sm leading-tight">
             <span className="truncate font-semibold">Lazada Logistics</span>
             <span className="truncate text-xs">
-              Applican Information System
+              Applicant Information System
             </span>
           </div>
         </SidebarMenuButton>

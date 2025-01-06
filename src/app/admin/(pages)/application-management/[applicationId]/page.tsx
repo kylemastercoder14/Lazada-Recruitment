@@ -2,11 +2,12 @@ import db from "@/lib/db";
 import React from "react";
 import SpecificApplicationClient from "./_components/client";
 
-const SpecificApplication = async ({
-  params,
-}: {
-  params: { applicationId: string };
-}) => {
+const SpecificApplication = async (
+  props: {
+    params: Promise<{ applicationId: string }>;
+  }
+) => {
+  const params = await props.params;
   const data = await db.jobApplication.findFirst({
     where: {
       id: params.applicationId,

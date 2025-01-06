@@ -7,6 +7,7 @@ import QuestionnaireCreationClient from "./_components/client";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
+import InterviewApplicant from './_components/interview-applicant';
 
 const QuestionnaireCreation = async () => {
   const datas = await db.questionnaire.findMany({
@@ -23,7 +24,8 @@ const QuestionnaireCreation = async () => {
       id: item.id,
       title: item.title,
       description: item.description,
-      howManyQuestions: item.question.length,
+      howManyQuestions: item.question.length + " question/s",
+      status: item.isPublished,
       createdAt: format(item.createdAt, "MMMM dd, yyyy"),
     };
   });
@@ -34,13 +36,16 @@ const QuestionnaireCreation = async () => {
           title="Questionnaire Creation"
           description="Create a new questionnaire for your applicants. You can add, update and delete questions."
         />
-        <Link href="/admin/questionnaire-creation/create">
-          <Button size="sm">
-            {" "}
-            <PlusCircle />
-            Add New Questionnaire
-          </Button>
-        </Link>
+        <div className="flex items-center space-x-2">
+          <InterviewApplicant />
+          <Link href="/admin/questionnaire-creation/create">
+            <Button size="sm">
+              {" "}
+              <PlusCircle />
+              Add New Questionnaire
+            </Button>
+          </Link>
+        </div>
       </div>
       <QuestionnaireCreationClient data={formattedData} />
     </div>

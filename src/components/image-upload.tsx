@@ -70,7 +70,7 @@ const ImageUpload = ({
       <div
         {...getRootProps({
           className:
-            "border-dashed border-2 rounded-xl cursor-pointer dark:bg-neutral-800 h-[140px] bg-gray-50 flex justify-center items-center flex-col",
+            "border-dashed border-[3px] rounded-xl cursor-pointer h-[200px] flex justify-center items-center flex-col",
         })}
       >
         <input {...getInputProps()} />

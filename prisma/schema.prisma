@@ -9,8 +9,10 @@ datasource db {
 
 model Admin {
   id        String   @id @default(cuid())
+  name      String   @default("Administrator")
   username  String   @unique
   password  String
+  role      String   @default("Admin")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -40,11 +42,14 @@ model JobApplicant {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  jobApplication    JobApplication[]
-  applicantAccount  ApplicantAccount[]
-  applicantScore    ApplicantScore[]
-  interviewSchedule InterviewSchedule[]
-  ApplicantAnswer   ApplicantAnswer[]
+  jobApplication         JobApplication[]
+  applicantAccount       ApplicantAccount[]
+  applicantScore         ApplicantScore[]
+  interviewSchedule      InterviewSchedule[]
+  applicantAnswer        ApplicantAnswer[]
+  applicantTraining      ApplicantTraining[]
+  applicantTrainingScore ApplicantTrainingScore[]
+  watchedVideo           WatchedVideo[]
 }
 
 model ApplicantAccount {
@@ -56,7 +61,6 @@ model ApplicantAccount {
 
   jobApplicantId String
   jobApplicant   JobApplicant   @relation(fields: [jobApplicantId], references: [id])
-  watchedVideo   WatchedVideo[]
   notification   Notification[]
 }
 
@@ -94,14 +98,14 @@ model VideoTraining {
 }
 
 model WatchedVideo {
-  id               String           @id @default(cuid())
-  applicantId      String
-  applicantAccount ApplicantAccount @relation(fields: [applicantId], references: [id])
-  videoTrainingId  String
-  videoTraining    VideoTraining    @relation(fields: [videoTrainingId], references: [id])
-  status           String
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  id              String        @id @default(cuid())
+  jobApplicantId  String
+  jobApplicant    JobApplicant  @relation(fields: [jobApplicantId], references: [id])
+  videoTrainingId String
+  videoTraining   VideoTraining @relation(fields: [videoTrainingId], references: [id])
+  status          String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
 
 model InterviewSchedule {
@@ -153,7 +157,49 @@ model ApplicantAnswer {
   questionId     String
   question       Question     @relation(fields: [questionId], references: [id])
   answer         String
+  reason         String?
   status         String?
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
+}
+
+model TrainingOnsite {
+  id                String              @id @default(cuid())
+  title             String
+  description       String
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @updatedAt
+  applicantTraining ApplicantTraining[]
+}
+
+model ApplicantTraining {
+  id               String         @id @default(cuid())
+  item             String
+  score            Int
+  jobApplicantId   String
+  jobApplicant     JobApplicant   @relation(fields: [jobApplicantId], references: [id])
+  trainingOnsiteId String
+  trainingOnsite   TrainingOnsite @relation(fields: [trainingOnsiteId], references: [id])
+  status           String
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
+}
+
+model ApplicantTrainingScore {
+  id             String       @id @default(cuid())
+  jobApplicantId String
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  totalScore     Float
+  status         String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+}
+
+model NewsAnnouncements {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

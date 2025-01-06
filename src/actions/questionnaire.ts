@@ -110,25 +110,22 @@ export const reorderQuestions = async (
 ) => {
   try {
     const questionnaireOwner = await db.questionnaire.findUnique({
-      where: {
-        id: questionnaireId,
-      },
+      where: { id: questionnaireId },
     });
 
     if (!questionnaireOwner) {
       return { error: "No questionnaire found" };
     }
 
-    for (const item of updateData) {
-      await db.question.update({
-        where: {
-          id: item.questionId,
-        },
-        data: {
-          position: item.position,
-        },
-      });
-    }
+    // Update positions in a single transaction
+    await db.$transaction(
+      updateData.map((item) =>
+        db.question.update({
+          where: { id: item.questionId },
+          data: { position: item.position },
+        })
+      )
+    );
 
     return { success: "Questions reordered successfully" };
   } catch (error) {
@@ -211,6 +208,112 @@ export const updateQuestionAccess = async (
     });
 
     return { id: questions.id, success: "Question updated successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Something went wrong. Please try again." };
+  }
+};
+
+export const deleteQuestionnaire = async (questionnaireId: string) => {
+  if (!questionnaireId) {
+    return { error: "Questionnaire ID is required" };
+  }
+
+  try {
+    const questionnaire = await db.questionnaire.findUnique({
+      where: {
+        id: questionnaireId,
+      },
+    });
+
+    if (!questionnaire) {
+      return { error: "No questionnaire found" };
+    }
+
+    await db.questionnaire.delete({
+      where: {
+        id: questionnaireId,
+      },
+    });
+
+    return { success: "Questionnaire deleted successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Something went wrong. Please try again." };
+  }
+};
+
+export const publishQuestionnaire = async (questionnaireId: string) => {
+  if (!questionnaireId) {
+    return { error: "Questionnaire ID is required" };
+  }
+
+  try {
+    const questionnaire = await db.questionnaire.findUnique({
+      where: { id: questionnaireId },
+      include: {
+        question: true,
+      },
+    });
+
+    if (!questionnaire) {
+      return { error: "Questionnaire not found" };
+    }
+
+    const hasPublishedQuestion = questionnaire.question.some(
+      (item) => item.isPublished
+    );
+
+    if (
+      !questionnaire.title ||
+      !questionnaire.description ||
+      !hasPublishedQuestion
+    ) {
+      return {
+        error:
+          "Please complete all the required fields before publishing the questionnaire",
+      };
+    }
+
+    await db.questionnaire.update({
+      data: {
+        isPublished: true,
+      },
+      where: { id: questionnaireId },
+    });
+
+    return { success: "Questionnaire published successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Something went wrong. Please try again." };
+  }
+};
+
+export const unpublishQuestionnaire = async (questionnaireId: string) => {
+  if (!questionnaireId) {
+    return { error: "Questionnaire ID is required" };
+  }
+
+  try {
+    const questionnaire = await db.questionnaire.findUnique({
+      where: { id: questionnaireId },
+      include: {
+        question: true,
+      },
+    });
+
+    if (!questionnaire) {
+      return { error: "Questionnaire not found" };
+    }
+
+    await db.questionnaire.update({
+      data: {
+        isPublished: false,
+      },
+      where: { id: questionnaireId },
+    });
+
+    return { success: "Questionnaire unpublished successfully" };
   } catch (error) {
     console.error(error);
     return { error: "Something went wrong. Please try again." };

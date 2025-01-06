@@ -37,21 +37,17 @@ const QuestionsList = ({
       return;
     }
 
-    const items = Array.from(questions);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+    const reorderedQuestions = Array.from(questions);
+    const [reorderedItem] = reorderedQuestions.splice(result.source.index, 1);
+    reorderedQuestions.splice(result.destination.index, 0, reorderedItem);
 
-    const startIndex = Math.min(result.source.index, result.destination.index);
-    const endIndex = Math.max(result.source.index, result.destination.index);
-
-    const updatedQuestions = items.slice(startIndex, endIndex + 1);
-    setQuestions(items);
-
-    const bulkUpdateData = updatedQuestions.map((question) => ({
+    // Update positions for all questions
+    const bulkUpdateData = reorderedQuestions.map((question, index) => ({
       questionId: question.id,
-      position: items.findIndex((item) => item.id === question.id),
+      position: index, // New position based on index
     }));
 
+    setQuestions(reorderedQuestions);
     onReorder(bulkUpdateData);
   };
 

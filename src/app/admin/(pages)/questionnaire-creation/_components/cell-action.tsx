@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Edit, MoreHorizontal, Trash, View } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
-import { VideoTrainingsColumn } from "./column";
+import { QuestionnaireCreationColumn } from "./column";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +14,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import AlertModal from "@/components/ui/alert-modal";
-import { deleteVideoTraining } from "@/actions/video-training";
 import { toast } from "sonner";
-import { deleteFromS3 } from "@/lib/s3";
+import { deleteQuestionnaire } from "@/actions/questionnaire";
 
 interface CellActionProps {
-  data: VideoTrainingsColumn;
+  data: QuestionnaireCreationColumn;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -30,16 +29,11 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
   const handleDelete = async () => {
     setLoading(true);
     try {
-      const res = await deleteVideoTraining(data.id);
+      const res = await deleteQuestionnaire(data.id);
       if (res.success) {
-        const deleteUrl = await deleteFromS3(data.videoUrl);
-        if (deleteUrl.success) {
-          toast.success(res.success);
-          setOpen(false);
-          router.refresh();
-        } else {
-          toast.error(deleteUrl.error);
-        }
+        toast.success(res.success);
+        setOpen(false);
+        router.refresh();
       } else {
         toast.error(res.error);
       }
@@ -55,7 +49,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         onConfirm={handleDelete}
         isOpen={open}
         onClose={() => setOpen(false)}
-        title="Are you sure you want to delete this video?"
+        title="Are you sure you want to delete this questionnaire?"
         loading={loading}
       />
       <DropdownMenu>
@@ -68,7 +62,9 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Actions</DropdownMenuLabel>
           <DropdownMenuItem
-            onClick={() => router.push(`/admin/video-trainings/${data.id}`)}
+            onClick={() =>
+              router.push(`/admin/questionnaire-creation/${data.id}`)
+            }
           >
             <Edit className="w-4 h-4 mr-2" />
             Edit

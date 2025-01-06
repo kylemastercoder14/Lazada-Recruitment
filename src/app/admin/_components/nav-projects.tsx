@@ -2,9 +2,7 @@
 
 import { type LucideIcon } from "lucide-react";
 
-import {
-  Collapsible,
-} from "@/components/ui/collapsible";
+import { Collapsible } from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -12,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useRouter } from "next/navigation";
 
 export function NavProjects({
   items,
@@ -27,6 +26,7 @@ export function NavProjects({
     }[];
   }[];
 }) {
+  const router = useRouter();
   return (
     <SidebarGroup>
       <SidebarGroupLabel>Others</SidebarGroupLabel>
@@ -39,7 +39,10 @@ export function NavProjects({
             className="group/collapsible"
           >
             <SidebarMenuItem>
-              <SidebarMenuButton tooltip={item.title}>
+              <SidebarMenuButton
+                onClick={() => router.push(item.url)}
+                tooltip={item.title}
+              >
                 {item.icon && <item.icon />}
                 <span>{item.title}</span>
               </SidebarMenuButton>

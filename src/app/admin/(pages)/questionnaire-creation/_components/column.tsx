@@ -3,12 +3,15 @@
 import { ColumnDef } from "@tanstack/react-table";
 // import { CellAction } from "./cell-action";
 import { CellAction } from "./cell-action";
+import { cn } from '@/lib/utils';
+import { Badge } from '@/components/ui/badge';
 
 export type QuestionnaireCreationColumn = {
   id: string;
   title: string;
   description: string;
-  howManyQuestions: number;
+  howManyQuestions: string;
+  status: boolean;
   createdAt: string;
 };
 
@@ -29,6 +32,18 @@ export const columns: ColumnDef<QuestionnaireCreationColumn>[] = [
   {
     accessorKey: "howManyQuestions",
     header: "Questions",
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    cell: ({ row }) => {
+      const isPublished = row.getValue("status") || false;
+      return (
+        <Badge variant={isPublished ? "success" : "default"}>
+          {isPublished ? "Published" : "Draft"}
+        </Badge>
+      );
+    },
   },
   {
     accessorKey: "createdAt",

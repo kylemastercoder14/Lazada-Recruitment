@@ -74,3 +74,25 @@ export const deleteVideoTraining = async (id: string) => {
     return { error: "Failed to delete video training" };
   }
 };
+
+export const videoTrainingEnded = async (id: string) => {
+  if (!id) {
+    return { error: "Invalid ID" };
+  }
+
+  try {
+    await db.watchedVideo.update({
+      data: {
+        status: "Watched",
+      },
+      where: {
+        id: id,
+      },
+    });
+
+    return { success: "Video training watched successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Failed to watch video training" };
+  }
+};

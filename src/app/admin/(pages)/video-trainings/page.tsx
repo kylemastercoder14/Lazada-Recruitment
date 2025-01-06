@@ -7,6 +7,7 @@ import VideoTrainingsClient from "./_components/client";
 import { Button } from "../../../../components/ui/button";
 import Link from "next/link";
 import { PlusCircle } from "lucide-react";
+import SendVideo from "./_components/send-video";
 
 const VideoTrainings = async () => {
   const datas = await db.videoTraining.findMany({
@@ -35,13 +36,16 @@ const VideoTrainings = async () => {
           title="Uploaded Video Trainings"
           description="Manage all the video trainings uploaded by the admin here. You can view, update and delete the video trainings."
         />
-        <Link href="/admin/video-trainings/new">
-          <Button size="sm">
-            {" "}
-            <PlusCircle />
-            Add New Video
-          </Button>
-        </Link>
+        <div className='flex items-center space-x-2'>
+          <SendVideo />
+          <Link href="/admin/video-trainings/new">
+            <Button size="sm">
+              {" "}
+              <PlusCircle />
+              Add New Video
+            </Button>
+          </Link>
+        </div>
       </div>
       <VideoTrainingsClient data={formattedData} />
     </div>

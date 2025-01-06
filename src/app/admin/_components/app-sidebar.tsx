@@ -12,6 +12,7 @@ import {
   TableOfContents,
   UserCog,
   Video,
+  WashingMachine,
 } from "lucide-react";
 
 import {
@@ -59,10 +60,15 @@ const data = {
       url: "/admin/questionnaire-creation",
       icon: ClipboardPlus,
     },
+    {
+      title: "Onsite Training Creation",
+      url: "/admin/on-sight-creation",
+      icon: WashingMachine,
+    },
   ],
   projects: [
     {
-      title: "Evaluations",
+      title: "Job Applicants Management",
       url: "/admin/evaluations",
       icon: BrainCog,
     },
@@ -70,11 +76,6 @@ const data = {
       title: "News & Announcements",
       url: "/admin/news-announcements",
       icon: Megaphone,
-    },
-    {
-      title: "Job Applicants Analytics",
-      url: "/admin/news-announcements",
-      icon: ChartArea,
     },
     {
       title: "System Administration",

@@ -9,7 +9,8 @@ interface AccountCreationProps {
   };
 }
 
-const AccountCreation: React.FC<AccountCreationProps> = async ({ params }) => {
+const AccountCreation: React.FC<AccountCreationProps> = async props => {
+  const params = props.params;
   const data = await db.jobApplication.findFirst({
     where: {
       id: params.applicationId,

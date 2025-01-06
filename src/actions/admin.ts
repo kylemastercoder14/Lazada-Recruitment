@@ -6,18 +6,73 @@ import { z } from "zod";
 import * as jose from "jose";
 import { cookies } from "next/headers";
 
-export const createAdmin = async (values: z.infer<typeof formSchema>) => {
+export const createAdmin = async (data: {
+  name: string;
+  username: string;
+  password: string;
+}) => {
+  if (!data.name || !data.username || !data.password) {
+    return { error: "All fields are required" };
+  }
   try {
-    const response = await db.admin.create({
+    await db.admin.create({
       data: {
-        username: values.username,
-        password: values.password,
+        name: data.name,
+        username: data.username,
+        password: data.password,
       },
     });
 
-    return response;
+    return { success: "Admin created successfully" };
   } catch (error) {
-    throw error;
+    console.error(error);
+    return { error: "Failed to create admin" };
+  }
+};
+
+export const updateAdmin = async (
+  data: { name: string; username: string; password: string },
+  id: string
+) => {
+  if (!data.name || !data.username || !data.password) {
+    return { error: "All fields are required" };
+  }
+
+  try {
+    await db.admin.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: data.name,
+        username: data.username,
+        password: data.password,
+      },
+    });
+
+    return { success: "Admin updated successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Failed to update admin" };
+  }
+};
+
+export const deleteAdmin = async (id: string) => {
+  if (!id) {
+    return { error: "ID is required" };
+  }
+
+  try {
+    await db.admin.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    return { success: "Admin deleted successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Failed to delete admin" };
   }
 };
 
@@ -63,7 +118,6 @@ export const loginAdmin = async (values: z.infer<typeof formSchema>) => {
     throw error;
   }
 };
-
 
 export const logout = async () => {
   (await cookies()).set("Authorization", "", { maxAge: 0, path: "/" });
