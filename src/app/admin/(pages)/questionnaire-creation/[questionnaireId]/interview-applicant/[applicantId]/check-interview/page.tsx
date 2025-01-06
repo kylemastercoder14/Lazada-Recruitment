@@ -3,11 +3,12 @@ import Heading from "@/components/ui/heading";
 import db from "@/lib/db";
 import InterviewAnswerForm from "../../_components/interview-answer-form";
 
-const CheckInterview = async ({
-  params,
-}: {
-  params: { questionnaireId: string; applicantId: string };
-}) => {
+const CheckInterview = async (
+  props: {
+    params: Promise<{ questionnaireId: string; applicantId: string }>;
+  }
+) => {
+  const params = await props.params;
   const applicant = await db.jobApplicant.findUnique({
     where: {
       id: params.applicantId,

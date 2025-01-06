@@ -3,13 +3,14 @@ import Heading from "@/components/ui/heading";
 import db from "@/lib/db";
 import VideoPlayer from "./video-player";
 
-const WatchedVideoId = async ({
-  params,
-}: {
-  params: {
-    watchedVideoId: string;
-  };
-}) => {
+const WatchedVideoId = async (
+  props: {
+    params: Promise<{
+      watchedVideoId: string;
+    }>;
+  }
+) => {
+  const params = await props.params;
   const data = await db.watchedVideo.findUnique({
     where: {
       id: params.watchedVideoId,

@@ -3,11 +3,12 @@ import db from "@/lib/db";
 import Heading from "@/components/ui/heading";
 import OnsiteTrainingComponent from "./onsite-training-component";
 
-const TrainingApplicantOnsite = async ({
-  params,
-}: {
-  params: { applicantId: string };
-}) => {
+const TrainingApplicantOnsite = async (
+  props: {
+    params: Promise<{ applicantId: string }>;
+  }
+) => {
+  const params = await props.params;
   const applicant = await db.jobApplicant.findUnique({
     where: {
       id: params.applicantId,

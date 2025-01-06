@@ -3,13 +3,14 @@ import { Modal } from "@/components/ui/modal";
 import db from "@/lib/db";
 import React from "react";
 
-const AccountCreation = async ({
-  params,
-}: {
-  params: {
-    applicationId: string;
-  };
-}) => {
+const AccountCreation = async (
+  props: {
+    params: Promise<{
+      applicationId: string;
+    }>;
+  }
+) => {
+  const params = await props.params;
   const data = await db.jobApplication.findFirst({
     where: {
       id: params.applicationId,

@@ -18,6 +18,7 @@ interface ApplicationEvaluation extends JobApplication {
   jobApplicant: JobApplicant;
 }
 
+// algorithm to evaluate the application
 const evaluateApplication = (data: JobApplicant) => {
   // Helper function to calculate points based on conditions
   const calculatePoints = (
