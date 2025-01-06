@@ -38,7 +38,7 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
       profileImage: "",
     },
     qualificationSkillsInfo: {
-      totalYearsExperience: 0,
+      totalYearsExperience: "0",
       highestRoleAchieved: "",
       fieldOfExpertise: "",
       awards: "",
@@ -46,14 +46,15 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
     workExperienceInfo: {
       companyName: "",
       jobPosition: "",
-      yearsWorkedInCompany: 0,
+      yearsWorkedInCompany: "0",
       certificate: "",
       logisticsCompany: "",
-      logisticsYearsWorked: 0,
+      logisticsYearsWorked: "0",
+      positionApplying: "",
     },
     educationInfo: {
       degreeStatus: "",
-      yearGraduated: 0,
+      yearGraduated: "0",
     },
   },
   nextStep: () => set((state) => ({ step: state.step + 1 })),
@@ -123,7 +124,7 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
             profileImage: "",
           },
           qualificationSkillsInfo: {
-            totalYearsExperience: 0,
+            totalYearsExperience: "0",
             highestRoleAchieved: "",
             fieldOfExpertise: "",
             awards: "",
@@ -131,14 +132,15 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
           workExperienceInfo: {
             companyName: "",
             jobPosition: "",
-            yearsWorkedInCompany: 0,
+            yearsWorkedInCompany: "0",
             certificate: "",
             logisticsCompany: "",
-            logisticsYearsWorked: 0,
+            logisticsYearsWorked: "0",
+            positionApplying: "",
           },
           educationInfo: {
             degreeStatus: "",
-            yearGraduated: 0,
+            yearGraduated: "0",
           },
         },
       };
