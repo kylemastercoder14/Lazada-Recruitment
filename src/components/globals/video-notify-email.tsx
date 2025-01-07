@@ -48,20 +48,20 @@ export const SendVideoEmail = ({
 		<Section style={buttonContainer}>
           <Button
             style={button}
-            href={`http://localhost:3000/applicant/video-training-sessions/${videoTrainingId}`}
+            href={`https://lazadaexpedise.agency/applicant/video-training-sessions/${videoTrainingId}`}
           >
             Watch Video Tutorial
           </Button>
         </Section>
         <Text style={paragraph}>
           If you have any questions or need help, please contact us at{" "}
-          <Link href="mailto:christian12345montero@gmail.com" style={code}>
-            christian12345montero@gmail.com
+          <Link href="mailto:admin12345@gmail.com" style={code}>
+            admin12345@gmail.com
           </Link>
         </Text>
         <Hr style={hr} />
         <Link
-          href="http://localhost:3000/admin/application-management"
+          href="https://lazadaexpedise.agency/"
           style={reportLink}
         >
           Lazada Expedise Agency PH

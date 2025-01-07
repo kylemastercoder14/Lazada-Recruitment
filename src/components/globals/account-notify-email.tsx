@@ -53,7 +53,7 @@ export const LazadaLoginCodeEmail = ({
         <Section style={buttonContainer}>
           <Button
             style={button}
-            href="http://localhost:3000/admin/application-management"
+            href="https://lazadaexpedise.agency/admin/application-management"
           >
             Login to Lazada Expedise
           </Button>
@@ -62,13 +62,13 @@ export const LazadaLoginCodeEmail = ({
         <Text style={paragraph}>Please change your password after you successfully logged in.</Text>
         <Text style={paragraph}>
           If you have any questions or need help, please contact us at{" "}
-          <Link href="mailto:christian12345montero@gmail.com" style={code}>
-            christian12345montero@gmail.com
+          <Link href="mailto:admin12345@gmail.com" style={code}>
+            admin12345@gmail.com
           </Link>
         </Text>
         <Hr style={hr} />
         <Link
-          href="http://localhost:3000/admin/application-management"
+          href="https://lazadaexpedise.agency"
           style={reportLink}
         >
           Lazada Expedise Agency PH
