@@ -60,14 +60,14 @@ model ApplicantAccount {
   updatedAt     DateTime @updatedAt
 
   jobApplicantId String
-  jobApplicant   JobApplicant   @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant   JobApplicant   @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   notification   Notification[]
 }
 
 model JobApplication {
   id              String       @id @default(cuid())
   jobApplicantId  String
-  jobApplicant    JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant    JobApplicant @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   positionApplied String
   applicationDate DateTime
   status          String       @default("Pending")
@@ -79,7 +79,7 @@ model JobApplication {
 model ApplicantScore {
   id             String       @id @default(cuid())
   jobApplicantId String
-  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   score          Int
   status         String
 
@@ -100,9 +100,9 @@ model VideoTraining {
 model WatchedVideo {
   id              String        @id @default(cuid())
   jobApplicantId  String
-  jobApplicant    JobApplicant  @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant    JobApplicant  @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   videoTrainingId String
-  videoTraining   VideoTraining @relation(fields: [videoTrainingId], references: [id])
+  videoTraining   VideoTraining @relation(fields: [videoTrainingId], references: [id], onDelete: Cascade)
   status          String
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
@@ -111,7 +111,7 @@ model WatchedVideo {
 model InterviewSchedule {
   id             String       @id @default(cuid())
   jobApplicantId String
-  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   interviewDate  DateTime
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
@@ -125,7 +125,7 @@ model Notification {
   updatedAt   DateTime @updatedAt
 
   accountNumber    String
-  applicantAccount ApplicantAccount @relation(fields: [accountNumber], references: [accountNumber])
+  applicantAccount ApplicantAccount @relation(fields: [accountNumber], references: [accountNumber], onDelete: Cascade)
 }
 
 model Questionnaire {
@@ -142,7 +142,7 @@ model Question {
   id              String            @id @default(cuid())
   position        Int
   questionnaireId String
-  questionnaire   Questionnaire     @relation(fields: [questionnaireId], references: [id])
+  questionnaire   Questionnaire     @relation(fields: [questionnaireId], references: [id], onDelete: Cascade)
   question        String
   isPublished     Boolean           @default(false)
   createdAt       DateTime          @default(now())
@@ -153,9 +153,9 @@ model Question {
 model ApplicantAnswer {
   id             String       @id @default(cuid())
   jobApplicantId String
-  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   questionId     String
-  question       Question     @relation(fields: [questionId], references: [id])
+  question       Question     @relation(fields: [questionId], references: [id], onDelete: Cascade)
   answer         String
   reason         String?
   status         String?
@@ -177,9 +177,9 @@ model ApplicantTraining {
   item             String
   score            Int
   jobApplicantId   String
-  jobApplicant     JobApplicant   @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant     JobApplicant   @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   trainingOnsiteId String
-  trainingOnsite   TrainingOnsite @relation(fields: [trainingOnsiteId], references: [id])
+  trainingOnsite   TrainingOnsite @relation(fields: [trainingOnsiteId], references: [id], onDelete: Cascade)
   status           String
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
@@ -188,7 +188,7 @@ model ApplicantTraining {
 model ApplicantTrainingScore {
   id             String       @id @default(cuid())
   jobApplicantId String
-  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id])
+  jobApplicant   JobApplicant @relation(fields: [jobApplicantId], references: [id], onDelete: Cascade)
   totalScore     Float
   status         String
   createdAt      DateTime     @default(now())
