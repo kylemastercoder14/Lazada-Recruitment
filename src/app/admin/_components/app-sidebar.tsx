@@ -91,9 +91,6 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar> & { admin: Admin }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher />
-      </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavProjects items={data.projects} />
