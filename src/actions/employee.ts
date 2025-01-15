@@ -9,9 +9,15 @@ import nodemailer from "nodemailer";
 
 export const createEmployee = async (formData: any) => {
   try {
+    const fullName =
+      formData.personalInfo.firstName +
+      " " +
+      formData.personalInfo.middleName +
+      " " +
+      formData.personalInfo.lastName;
     const employee = await db.jobApplicant.create({
       data: {
-        name: formData.personalInfo.name,
+        name: fullName,
         email: formData.personalInfo.email,
         age: parseInt(formData.personalInfo.age), // Convert to integer
         sex: formData.personalInfo.sex,

@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { InterviewButton } from "./interview-button";
 import { TrainingButton } from "./training-button";
 import { SendEmailButton } from "./send-email-button";
+import { ChevronsUpDown } from "lucide-react";
 
 export type EvaluationsWatchedColumn = {
   id: string;
@@ -52,23 +53,73 @@ export type EvaluationsOverallColumn = {
 export const columns1: ColumnDef<EvaluationsWatchedColumn>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant Name
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Email
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "accountNumber",
-    header: "Account Number",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant ID
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "video",
-    header: "Video Title",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Video Title
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <Badge
         variant={row.original.status === "Watched" ? "success" : "destructive"}
@@ -82,19 +133,59 @@ export const columns1: ColumnDef<EvaluationsWatchedColumn>[] = [
 export const columns2: ColumnDef<EvaluationsInterviewedColumn>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant Name
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Email
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "accountNumber",
-    header: "Account Number",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant ID
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "status",
-    header: " Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <Badge
         variant={
@@ -119,19 +210,59 @@ export const columns2: ColumnDef<EvaluationsInterviewedColumn>[] = [
 export const columns3: ColumnDef<EvaluationsOnsiteColumn>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant Name
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Email
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "accountNumber",
-    header: "Account Number",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant ID
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <Badge
         variant={
@@ -156,19 +287,59 @@ export const columns3: ColumnDef<EvaluationsOnsiteColumn>[] = [
 export const columns4: ColumnDef<EvaluationsOverallColumn>[] = [
   {
     accessorKey: "name",
-    header: "Name",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant Name
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Email
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "role",
-    header: "Role",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Role
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "jobRegistrationStatus",
-    header: "Job Registration Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Job Registration Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <Badge
         variant={
@@ -185,7 +356,17 @@ export const columns4: ColumnDef<EvaluationsOverallColumn>[] = [
   },
   {
     accessorKey: "trainingStatus",
-    header: "Practical Training Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Practical Training Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <Badge
         variant={
@@ -202,7 +383,17 @@ export const columns4: ColumnDef<EvaluationsOverallColumn>[] = [
   },
   {
     accessorKey: "interviewStatus",
-    header: "Digital Interview Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Digital Interview Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <Badge
         variant={
@@ -219,7 +410,17 @@ export const columns4: ColumnDef<EvaluationsOverallColumn>[] = [
   },
   {
     accessorKey: "overallStatus",
-    header: "Overall Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Overall Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <Badge
         variant={

@@ -62,8 +62,8 @@ export const getMonthlyApplicantCounts = async () => {
       },
       where: {
         createdAt: {
-          gte: new Date("2024-01-01"), // Example: Start of the year
-          lt: new Date("2025-01-01"), // Example: End of the year
+          gte: new Date("2025-01-01"), // Example: Start of the year
+          lt: new Date("2026-01-01"), // Example: End of the year
         },
       },
       orderBy: {

@@ -30,7 +30,7 @@ const Login = () => {
         toast.error(response.error);
       } else {
         toast.success("Login successful. Redirecting to dashboard...");
-        window.location.assign("/applicant/news-announcements");
+        window.location.assign("/applicant/my-progress");
       }
     } catch (error) {
       console.error(error);

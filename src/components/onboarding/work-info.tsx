@@ -69,7 +69,7 @@ const WorkInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.companyName ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -119,7 +119,7 @@ const WorkInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.jobPosition ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -156,7 +156,7 @@ const WorkInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.yearsWorkedInCompany ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -200,7 +200,7 @@ const WorkInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.certificate ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -246,7 +246,7 @@ const WorkInfo = () => {
       <div className="mt-5">
         <div className="space-y-1">
           <Label
-            className={`text-sm ${
+            className={`text-sm uppercase ${
               errors.logisticsCompany ? "text-red-500" : "text-gray-900"
             }`}
           >
@@ -284,7 +284,7 @@ const WorkInfo = () => {
         </div>
         <div className="space-y-1 mt-5">
           <Label
-            className={`text-sm ${
+            className={`text-sm uppercase ${
               errors.logisticsYearsWorked ? "text-red-500" : "text-gray-900"
             }`}
           >
@@ -328,7 +328,7 @@ const WorkInfo = () => {
       <h2 className="text-xl font-semibold pb-3 mt-5">Position Applying</h2>
       <Separator className="bg-zinc-300" />
       <div className="mt-5">
-        <div className="space-y-1 mt-5">
+        <div className="space-y-1 uppercase mt-5">
           <Label
             className={`text-sm ${
               errors.positionApplying ? "text-red-500" : "text-gray-900"
@@ -337,17 +337,35 @@ const WorkInfo = () => {
             Position Applying
             <span className="text-red-500">*</span>
           </Label>
-          <Input
-            type="text"
-            required
-            placeholder="Enter position that you are applying for"
+          <Select
             name="positionApplying"
-            value={formData.workExperienceInfo.positionApplying}
-            className={`${
-              errors.companyName ? "border-red-500 focus:ring-red-500" : ""
-            }`}
-            onChange={handleChange}
-          />
+            defaultValue={formData.workExperienceInfo.positionApplying}
+            onValueChange={(value) =>
+              handleChange({
+                target: { name: "positionApplying", value },
+              } as React.ChangeEvent<HTMLInputElement>)
+            }
+          >
+            <SelectTrigger
+              className={`${
+                errors.positionApplying
+                  ? "border-red-500 focus:ring-red-500"
+                  : ""
+              }`}
+            >
+              <SelectValue placeholder="--Position Applying--" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Auto Mu Scanner">
+                Auto Mu Scanner
+              </SelectItem>
+              <SelectItem value="Fine Sort Scanner">Fine Sort Scanner</SelectItem>
+              <SelectItem value="Pre-sort Scanner">Pre-sort Scanner</SelectItem>
+              <SelectItem value="Reject Scanner">Reject Scanner</SelectItem>
+              <SelectItem value="Mover">Mover</SelectItem>
+              <SelectItem value="Dumper">Dumper</SelectItem>
+            </SelectContent>
+          </Select>
           {errors.positionApplying && (
             <p className="text-red-500 text-sm">{errors.positionApplying}</p>
           )}

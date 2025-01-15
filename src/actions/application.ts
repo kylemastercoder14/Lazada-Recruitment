@@ -298,3 +298,42 @@ export const sendSchedule = async (
     return { message: "An error occurred. Please try again." };
   }
 };
+
+export const getScheduleByDate = async (data: { date: string }) => {
+  if (!data.date) {
+    return { error: "No date provided" };
+  }
+
+  try {
+    const scheduledTimes = await db.interviewSchedule.findMany({
+      where: {
+        interviewDate: {
+          gte: new Date(data.date),
+          lt: new Date(`${data.date}T23:59:59.999Z`),
+        },
+      },
+      select: {
+        interviewDate: true,
+      },
+    });
+
+    // Format the scheduled times to match the "HH:mm AM/PM" format
+    const formattedScheduledTimes = scheduledTimes.map((time) => {
+      const date = new Date(time.interviewDate);
+      const hours = date.getHours();
+      const minutes = date.getMinutes();
+      const period = hours >= 12 ? "PM" : "AM";
+      const formattedHour = hours % 12 || 12; // Convert to 12-hour format
+      const formattedMinute = minutes.toString().padStart(2, "0");
+      return `${formattedHour}:${formattedMinute} ${period}`;
+    });
+
+    return {
+      scheduledTimes: formattedScheduledTimes,
+      scheduledCount: formattedScheduledTimes.length,
+    };
+  } catch (error) {
+    console.error("Error getting scheduled times:", error);
+    return { error: "Failed to get scheduled times" };
+  }
+};

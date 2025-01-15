@@ -8,7 +8,9 @@ interface ApplicationManagementClientProps {
   data: ApplicationManagementColumn[];
 }
 
-const ApplicationManagementClient: React.FC<ApplicationManagementClientProps> = ({ data }) => {
+const ApplicationManagementClient: React.FC<
+  ApplicationManagementClientProps
+> = ({ data }) => {
   return (
     <>
       <DataTable searchKey="name" columns={columns} data={data} />

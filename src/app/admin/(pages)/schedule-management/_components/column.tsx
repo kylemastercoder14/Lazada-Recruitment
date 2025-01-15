@@ -1,7 +1,8 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { CellAction } from './cell-action';
+import { CellAction } from "./cell-action";
+import { ChevronsUpDown } from "lucide-react";
 // import { CellAction } from "./cell-action";
 
 export type ScheduleManagementColumn = {
@@ -15,19 +16,59 @@ export type ScheduleManagementColumn = {
 export const columns: ColumnDef<ScheduleManagementColumn>[] = [
   {
     accessorKey: "name",
-    header: "Applicant Name",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant Name
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "accountNumber",
-    header: "Account Number",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant Id
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Email
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     accessorKey: "interviewDate",
-    header: "Interview Date (suggested by the system)",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Interview Date (suggested by the system)
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     id: "actions",

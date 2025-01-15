@@ -37,6 +37,7 @@ const LineChartCard = () => {
     const fetchData = async () => {
       try {
         const data = await getMonthlyApplicantCounts();
+        console.log("Data", data);
 
         // Create an array for all months from Jan to Dec with default value 0
         const months = [
@@ -54,20 +55,37 @@ const LineChartCard = () => {
           "Dec",
         ];
 
-        const monthData = months.map((month) => {
-          // Find data for the current month or set it to 0 if not found
-          const found = Array.isArray(data) ? data.find((item) => item.month === month) : null;
-          return { month, applicant: found ? found.applicant : 0 };
+        // Aggregate data by month
+        const aggregatedData = months.map((month) => {
+          // Filter all entries for the current month and sum the applicants
+          let applicantCount = 0;
+          if (Array.isArray(data)) {
+            const monthApplicants = data.filter((item) => item.month === month);
+            applicantCount = monthApplicants.reduce(
+              (acc, curr) => acc + curr.applicant,
+              0
+            );
+          }
+
+          return { month, applicant: applicantCount };
         });
 
-        setChartData(monthData);
+        setChartData(aggregatedData);
 
         // Calculate trend percentage
-        if (monthData.length > 1) {
-          const lastMonth = monthData[monthData.length - 2].applicant || 0;
-          const thisMonth = monthData[monthData.length - 1].applicant || 0;
-          const change = ((thisMonth - lastMonth) / lastMonth) * 100;
-          setTrend(change);
+        if (aggregatedData.length > 1) {
+          const lastMonth =
+            aggregatedData[aggregatedData.length - 2].applicant || 0;
+          const thisMonth =
+            aggregatedData[aggregatedData.length - 1].applicant || 0;
+
+          // Avoid division by zero by checking if lastMonth is zero
+          if (lastMonth === 0) {
+            setTrend(thisMonth > 0 ? 100 : 0); // 100% increase if lastMonth is 0 and thisMonth is > 0, else 0% if both are 0
+          } else {
+            const change = ((thisMonth - lastMonth) / lastMonth) * 100;
+            setTrend(change);
+          }
         }
       } catch (error) {
         console.error("Error fetching chart data:", error);
@@ -82,17 +100,17 @@ const LineChartCard = () => {
       <CardHeader>
         <CardTitle>Total Applicants Summary</CardTitle>
       </CardHeader>
-      <CardContent className='p-5'>
-        <ChartContainer className='w-full h-[40vh] p-5' config={chartConfig}>
+      <CardContent className="p-5">
+        <ChartContainer className="w-full h-[40vh] p-5" config={chartConfig}>
           <LineChart
-		  height={300}
-		  width={980}
+            height={300}
+            width={850}
             accessibilityLayer
             data={chartData}
             margin={{
               top: 40,
-              left: 30,
-              right: 30,
+              left: 20,
+              right: 10,
             }}
           >
             <XAxis

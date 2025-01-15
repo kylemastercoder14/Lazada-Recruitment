@@ -45,7 +45,7 @@ const EducationInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.degreeStatus ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -86,7 +86,7 @@ const EducationInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.yearGraduated ? "text-red-500" : "text-gray-900"
               }`}
             >

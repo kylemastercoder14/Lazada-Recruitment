@@ -7,8 +7,15 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { updateSchedule } from "@/actions/application";
-import { format } from "date-fns";
+import { getScheduleByDate, updateSchedule } from "@/actions/application";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { generateAllTimes } from "@/lib/utils";
 
 const EditSchedule = ({
   isOpen,
@@ -22,6 +29,7 @@ const EditSchedule = ({
   const router = useRouter();
   const [date, setDate] = React.useState("");
   const [time, setTime] = React.useState("");
+  const [availableTimes, setAvailableTimes] = React.useState<string[]>([]);
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
@@ -46,32 +54,86 @@ const EditSchedule = ({
     }
   }, [data]);
 
+  React.useEffect(() => {
+    const fetchAvailableTimes = async () => {
+      if (!date) return;
+
+      try {
+        const res = await getScheduleByDate({ date });
+        if (res.error) {
+          throw new Error(res.error);
+        }
+
+        const scheduledTimes = res.scheduledTimes || [];
+        const scheduledCount = res.scheduledCount || 0;
+
+        // Check if more than 10 slots are already scheduled
+        if (scheduledCount >= 10) {
+          toast.error("You cannot schedule more than 10 slots per day.");
+          return;
+        }
+
+        // Generate all available times and filter out scheduled ones
+        const allTimes = generateAllTimes();
+        const available = allTimes.filter(
+          (time) => !scheduledTimes.includes(time)
+        );
+
+        setAvailableTimes(available);
+      } catch (error) {
+        console.error("Failed to fetch available times:", error);
+        toast.error("Failed to fetch available times");
+      }
+    };
+
+    fetchAvailableTimes();
+  }, [date]);
+
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      // Combine date and time into a single Date object
-      const [year, month, day] = date.split("-").map(Number); // Extract year, month, day
-      const [hour, minute] = time.split(":").map(Number); // Extract hour, minute
+      const [year, month, day] = date.split("-").map(Number);
+      const [hour, minute] = time
+        .split(/:| /)
+        .map((value) => (isNaN(Number(value)) ? value : Number(value)));
+      const isPM = time.includes("PM");
+      const formattedHour =
+        isPM && hour !== 12
+          ? Number(hour) + 12
+          : hour === 12 && !isPM
+            ? 0
+            : Number(hour);
 
-      // Create a new Date object in local time
-      const localDateTime = new Date(year, month - 1, day, hour, minute);
-
-      // Convert to ISO string for the database
+      const localDateTime = new Date(
+        year,
+        month - 1,
+        day,
+        Number(formattedHour),
+        Number(minute)
+      );
       const isoDateTime = localDateTime.toISOString();
 
-      const res = await updateSchedule({
+      // Check how many slots are already scheduled for the selected date
+      const res = await getScheduleByDate({ date });
+      if ((res.scheduledCount ?? 0) >= 10) {
+        toast.error("You cannot add more than 10 slots for this date.");
+        return;
+      }
+
+      // Proceed with updating the schedule
+      const updateRes = await updateSchedule({
         interviewDate: isoDateTime,
         id: data.id,
       });
 
-      if (res.success) {
-        toast.success(res.success);
+      if (updateRes.success) {
+        toast.success(updateRes.success);
         onClose();
         router.refresh();
       } else {
-        toast.error(res.error);
+        toast.error(updateRes.error);
       }
     } catch (error) {
       console.error(error);
@@ -101,12 +163,22 @@ const EditSchedule = ({
           </div>
           <div className="space-y-2">
             <Label>Interview Time</Label>
-            <Input
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-              type="time"
-              required
-            />
+            <Select
+              defaultValue={time}
+              onValueChange={(value) => setTime(value)}
+              disabled={!availableTimes.length}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Select time" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableTimes.map((availableTime) => (
+                  <SelectItem key={availableTime} value={availableTime}>
+                    {availableTime}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
         <div className="flex justify-end space-x-2 mt-3">

@@ -16,7 +16,7 @@ const ReviewSubmit = () => {
   const [loading, setLoading] = React.useState(false);
   const router = useRouter();
   const contentRef = useRef<HTMLDivElement>(null);
-  const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: `${formData.personalInfo.name}_Application_Form` });
+  const reactToPrintFn = useReactToPrint({ contentRef, documentTitle: `${formData.personalInfo.firstName + " " + formData.personalInfo.lastName}_Application_Form` });
 
   const handleSubmit = async () => {
     try {
@@ -54,29 +54,29 @@ const ReviewSubmit = () => {
         <div className="mt-2">
           <div className="grid print:grid-cols-3 md:grid-cols-3 gap-3">
             <div>
-              <h3 className="font-semibold">Full Name:</h3>
-              <p>{formData.personalInfo.name}</p>
+              <h3 className="font-semibold uppercase">Full Name:</h3>
+              <p>{formData.personalInfo.firstName} {formData.personalInfo.middleName} {formData.personalInfo.lastName}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Email Address:</h3>
+              <h3 className="font-semibold uppercase">Email Address:</h3>
               <p>{formData.personalInfo.email}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Age:</h3>
+              <h3 className="font-semibold uppercase">Age:</h3>
               <p>{formData.personalInfo.age}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Sex:</h3>
+              <h3 className="font-semibold uppercase">Sex:</h3>
               <p>{formData.personalInfo.sex}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Contact Number:</h3>
+              <h3 className="font-semibold uppercase">Contact Number:</h3>
               <p>{formData.personalInfo.contactNumber}</p>
             </div>
           </div>
           <div className="grid gap-5 mt-3">
             <div>
-              <h3 className="font-semibold">Address:</h3>
+              <h3 className="font-semibold uppercase">Address:</h3>
               <p>{`${formData.personalInfo.houseNumber}, ${formData.personalInfo.barangay}, ${formData.personalInfo.municipality}, ${formData.personalInfo.province}, ${formData.personalInfo.region}, ${formData.personalInfo.zipCode}`}</p>
             </div>
           </div>
@@ -88,19 +88,19 @@ const ReviewSubmit = () => {
         <div className="mt-2">
           <div className="grid print:grid-cols-2 md:grid-cols-2 gap-3">
             <div>
-              <h3 className="font-semibold">Experience (Years):</h3>
+              <h3 className="font-semibold uppercase">Experience (Years):</h3>
               <p>{formData.qualificationSkillsInfo.totalYearsExperience}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Highest Role/Position Achieved:</h3>
+              <h3 className="font-semibold uppercase">Highest Role/Position Achieved:</h3>
               <p>{formData.qualificationSkillsInfo.highestRoleAchieved}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Field of Expertise:</h3>
+              <h3 className="font-semibold uppercase">Field of Expertise:</h3>
               <p>{formData.qualificationSkillsInfo.fieldOfExpertise}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Awards:</h3>
+              <h3 className="font-semibold uppercase">Awards:</h3>
               <p>{formData.qualificationSkillsInfo.awards ?? "N/A"}</p>
             </div>
           </div>
@@ -110,19 +110,19 @@ const ReviewSubmit = () => {
         <div className="mt-2">
           <div className="grid md:grid-cols-2 print:grid-cols-2 gap-3">
             <div>
-              <h3 className="font-semibold">Company Name:</h3>
+              <h3 className="font-semibold uppercase">Company Name:</h3>
               <p>{formData.workExperienceInfo.companyName}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Job/Role Position:</h3>
+              <h3 className="font-semibold uppercase">Job/Role Position:</h3>
               <p>{formData.workExperienceInfo.jobPosition}</p>
             </div>
             <div>
-              <h3 className="font-semibold">How many years of experience:</h3>
+              <h3 className="font-semibold uppercase">How many years of experience:</h3>
               <p>{formData.workExperienceInfo.yearsWorkedInCompany}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Certification Received:</h3>
+              <h3 className="font-semibold uppercase">Certification Received:</h3>
               <p>{formData.workExperienceInfo.certificate ?? "N/A"}</p>
             </div>
           </div>
@@ -134,11 +134,11 @@ const ReviewSubmit = () => {
         <div className="mt-2">
           <div className="grid print:grid-cols-2 md:grid-cols-2 gap-3">
             <div>
-              <h3 className="font-semibold">Company Name:</h3>
+              <h3 className="font-semibold uppercase">Company Name:</h3>
               <p>{formData.workExperienceInfo.logisticsCompany}</p>
             </div>
             <div>
-              <h3 className="font-semibold">How many years of experience:</h3>
+              <h3 className="font-semibold uppercase">How many years of experience:</h3>
               <p>{formData.workExperienceInfo.logisticsYearsWorked}</p>
             </div>
           </div>
@@ -148,11 +148,11 @@ const ReviewSubmit = () => {
         <div className="mt-2">
           <div className="grid print:grid-cols-2 md:grid-cols-2 gap-3">
             <div>
-              <h3 className="font-semibold">Degree/Undergraduate Status:</h3>
+              <h3 className="font-semibold uppercase">Degree/Undergraduate Status:</h3>
               <p>{formData.educationInfo.degreeStatus}</p>
             </div>
             <div>
-              <h3 className="font-semibold">Year Graduated:</h3>
+              <h3 className="font-semibold uppercase">Year Graduated:</h3>
               <p>{formData.educationInfo.yearGraduated}</p>
             </div>
           </div>

@@ -67,7 +67,7 @@ const QualificationInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.totalYearsExperience ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -112,7 +112,7 @@ const QualificationInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.highestRoleAchieved ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -159,7 +159,7 @@ const QualificationInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.fieldOfExpertise ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -197,7 +197,7 @@ const QualificationInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.awards ? "text-red-500" : "text-gray-900"
               }`}
             >

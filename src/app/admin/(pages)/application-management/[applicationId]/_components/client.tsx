@@ -311,6 +311,10 @@ const SpecificApplicationClient = ({
             <span className="font-semibold">Contact Number:</span>{" "}
             {data.jobApplicant.contactNumber}
           </p>
+          <p className="mt-1">
+            <span className="font-semibold">Position Applied:</span>{" "}
+            {data.positionApplied}
+          </p>
           <Separator className="my-5" />
           <p className="text-blue-700 font-semibold mt-5">
             Qualification & Skill Criteria (30%)

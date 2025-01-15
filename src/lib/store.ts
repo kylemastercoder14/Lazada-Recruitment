@@ -24,7 +24,9 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
   step: 1,
   formData: {
     personalInfo: {
-      name: "",
+      firstName: "",
+      middleName: "",
+      lastName: "",
       email: "",
       age: 18,
       sex: "",
@@ -110,7 +112,9 @@ const useApplicationAppStore = create<ApplicationAppState>((set, get) => ({
         step: 1,
         formData: {
           personalInfo: {
-            name: "",
+            firstName: "",
+            middleName: "",
+            lastName: "",
             email: "",
             age: 18,
             sex: "",

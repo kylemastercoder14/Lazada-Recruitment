@@ -7,7 +7,9 @@ import {
   BrainCog,
   CalendarCheck,
   ChartPie,
+  CircleDotDashed,
   ClipboardPlus,
+  LoaderPinwheelIcon,
   Megaphone,
   SquareTerminal,
   TableOfContents,
@@ -35,9 +37,9 @@ interface ApplicantInterface extends ApplicantAccount {
 const data = {
   navMain: [
     {
-      title: "News & Announcements",
-      url: "/applicant/news-announcements",
-      icon: Megaphone,
+      title: "Applicant Progress",
+      url: "/applicant/my-progress",
+      icon: LoaderPinwheelIcon,
     },
     {
       title: "Video Training Sessions",
@@ -53,6 +55,11 @@ const data = {
       title: "Evaluation Status",
       url: "/applicant/evaluation-status",
       icon: BookOpenCheck,
+    },
+    {
+      title: "News & Announcements",
+      url: "/applicant/news-announcements",
+      icon: Megaphone,
     },
     {
       title: "Notifications",

@@ -76,32 +76,79 @@ const PersonalInfo = () => {
             />
           </div>
           <div className="col-span-4 space-y-4">
-            <div className="space-y-1">
-              <Label
-                className={`text-sm ${
-                  errors.name ? "text-red-500" : "text-gray-900"
-                }`}
-              >
-                Full Name <span className="text-red-500">*</span>
-              </Label>
-              <Input
-                type="text"
-                required
-                placeholder="Enter full name"
-                name="name"
-                value={formData.personalInfo.name}
-                className={`${
-                  errors.name ? "border-red-500 focus:ring-red-500" : ""
-                }`}
-                onChange={handleChange}
-              />
-              {errors.name && (
-                <p className="text-red-500 text-sm">{errors.name}</p>
-              )}
+            <div className="grid md:grid-cols-3 grid-cols-1 gap-3">
+              <div className="space-y-1">
+                <Label
+                  className={`text-sm uppercase ${
+                    errors.firstName ? "text-red-500" : "text-gray-900"
+                  }`}
+                >
+                  First Name <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  type="text"
+                  required
+                  placeholder="Enter first name"
+                  name="firstName"
+                  value={formData.personalInfo.firstName}
+                  className={`${
+                    errors.firstName ? "border-red-500 focus:ring-red-500" : ""
+                  }`}
+                  onChange={handleChange}
+                />
+                {errors.firstName && (
+                  <p className="text-red-500 text-sm">{errors.firstName}</p>
+                )}
+              </div>
+              <div className="space-y-1">
+                <Label
+                  className={`text-sm uppercase ${
+                    errors.middleName ? "text-red-500" : "text-gray-900"
+                  }`}
+                >
+                  Middle Name (optional)
+                </Label>
+                <Input
+                  type="text"
+                  placeholder="Enter middle name"
+                  name="middleName"
+                  value={formData.personalInfo.middleName}
+                  className={`${
+                    errors.middleName ? "border-red-500 focus:ring-red-500" : ""
+                  }`}
+                  onChange={handleChange}
+                />
+                {errors.middleName && (
+                  <p className="text-red-500 text-sm">{errors.middleName}</p>
+                )}
+              </div>
+              <div className="space-y-1">
+                <Label
+                  className={`text-sm uppercase ${
+                    errors.lastName ? "text-red-500" : "text-gray-900"
+                  }`}
+                >
+                  Last Name <span className="text-red-500">*</span>
+                </Label>
+                <Input
+                  type="text"
+                  required
+                  placeholder="Enter last name"
+                  name="lastName"
+                  value={formData.personalInfo.lastName}
+                  className={`${
+                    errors.lastName ? "border-red-500 focus:ring-red-500" : ""
+                  }`}
+                  onChange={handleChange}
+                />
+                {errors.lastName && (
+                  <p className="text-red-500 text-sm">{errors.lastName}</p>
+                )}
+              </div>
             </div>
             <div className="space-y-1">
               <Label
-                className={`text-sm ${
+                className={`text-sm uppercase ${
                   errors.email ? "text-red-500" : "text-gray-900"
                 }`}
               >
@@ -127,7 +174,7 @@ const PersonalInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.age ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -148,7 +195,7 @@ const PersonalInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.sex ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -176,7 +223,7 @@ const PersonalInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.contactNumber ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -199,7 +246,7 @@ const PersonalInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.houseNumber ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -225,7 +272,7 @@ const PersonalInfo = () => {
         <div className="grid md:grid-cols-2 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.region ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -259,7 +306,7 @@ const PersonalInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.province ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -295,7 +342,7 @@ const PersonalInfo = () => {
         <div className="grid md:grid-cols-3 mt-5 gap-6">
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.municipality ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -329,7 +376,7 @@ const PersonalInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.barangay ? "text-red-500" : "text-gray-900"
               }`}
             >
@@ -360,7 +407,7 @@ const PersonalInfo = () => {
           </div>
           <div className="space-y-1">
             <Label
-              className={`text-sm ${
+              className={`text-sm uppercase ${
                 errors.zipCode ? "text-red-500" : "text-gray-900"
               }`}
             >

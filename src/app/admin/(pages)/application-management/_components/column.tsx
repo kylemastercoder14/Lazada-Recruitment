@@ -6,6 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { CellAction } from "./cell-action";
+import { ChevronsUpDown } from "lucide-react";
 
 export type ApplicationManagementColumn = {
   id: string;
@@ -19,7 +20,17 @@ export type ApplicationManagementColumn = {
 export const columns: ColumnDef<ApplicationManagementColumn>[] = [
   {
     accessorKey: "name",
-    header: "Applicant",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => (
       <div className="flex items-center gap-x-2">
         {row.original.imageUrl ? (
@@ -46,7 +57,17 @@ export const columns: ColumnDef<ApplicationManagementColumn>[] = [
   },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Status
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
     cell: ({ row }) => {
       const status = row.original.status;
       let variant:
@@ -71,7 +92,17 @@ export const columns: ColumnDef<ApplicationManagementColumn>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Date Created",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Date Created
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
   },
   {
     id: "actions",
