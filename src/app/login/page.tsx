@@ -52,7 +52,7 @@ const Login = () => {
           <form onSubmit={handleSubmit} className="space-y-3">
             <div className="space-y-1">
               <Label>
-                Account Number <span className="text-red-500">*</span>
+                Applicant ID <span className="text-red-500">*</span>
               </Label>
               <Input
                 value={accountNumber}
