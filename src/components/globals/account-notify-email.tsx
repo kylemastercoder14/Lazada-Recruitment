@@ -53,7 +53,7 @@ export const LazadaLoginCodeEmail = ({
         <Section style={buttonContainer}>
           <Button
             style={button}
-            href="https://lazadaexpedise.agency/admin/application-management"
+            href="https://lazadaexpedise.agency/login"
           >
             Login to Lazada Expedise
           </Button>
