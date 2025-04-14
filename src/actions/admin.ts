@@ -122,3 +122,52 @@ export const loginAdmin = async (values: z.infer<typeof formSchema>) => {
 export const logout = async () => {
   (await cookies()).set("Authorization", "", { maxAge: 0, path: "/" });
 };
+
+export const updateUserImage = async (image: string, id: string) => {
+  if (!image || !id) {
+    return { error: "Image and ID are required" };
+  }
+
+  try {
+    await db.admin.update({
+      where: {
+        id: id,
+      },
+      data: {
+        profileImage: image,
+      },
+    });
+
+    return { success: "Profile image updated successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Failed to update profile image" };
+  }
+};
+
+export const updateUserName = async (
+  name: string,
+  username: string,
+  id: string
+) => {
+  if (!name || !username || !id) {
+    return { error: "All fields are required" };
+  }
+
+  try {
+    await db.admin.update({
+      where: {
+        id: id,
+      },
+      data: {
+        name: name,
+        username: username,
+      },
+    });
+
+    return { success: "Profile name updated successfully" };
+  } catch (error) {
+    console.error(error);
+    return { error: "Failed to update profile name" };
+  }
+};

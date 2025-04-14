@@ -49,7 +49,7 @@ export function LoginForm() {
         toast.error(response.error);
       } else {
         toast.success("You have successfully logged in.");
-        router.push("/admin/application-management");
+        router.push("/admin/dashboard");
       }
     } catch (error) {
       console.error(error);

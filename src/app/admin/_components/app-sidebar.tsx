@@ -7,6 +7,7 @@ import {
   ChartArea,
   ChartPie,
   ClipboardPlus,
+  LayoutDashboard,
   Megaphone,
   SquareTerminal,
   TableOfContents,
@@ -30,6 +31,11 @@ import { Admin } from "@prisma/client";
 
 const data = {
   navMain: [
+    {
+      title: "Dashboard",
+      url: "/admin/dashboard",
+      icon: LayoutDashboard,
+    },
     {
       title: "Application Management",
       url: "/admin/application-management",

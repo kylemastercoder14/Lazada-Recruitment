@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<flowgorithm fileversion="4.2">
+    <function name="Main" type="None" variable="">
+        <parameters/>
+        <body>
+            <!-- Declare all variables in main scope -->
+            <declare name="Name, ID, Course, YearLevel, Remarks" type="String"/>
+            <declare name="Grade1, Grade2, Grade3" type="Integer"/>
+            <declare name="Average" type="Real"/>
+
+            <!-- Initialize variables before calling functions -->
+            <assign variable="Name" expression="&quot;&quot;"/>
+            <assign variable="ID" expression="&quot;&quot;"/>
+            <assign variable="Course" expression="&quot;&quot;"/>
+            <assign variable="YearLevel" expression="&quot;&quot;"/>
+            <assign variable="Grade1" expression="0"/>
+            <assign variable="Grade2" expression="0"/>
+            <assign variable="Grade3" expression="0"/>
+            <assign variable="Average" expression="0.0"/>
+            <assign variable="Remarks" expression="&quot;&quot;"/>
+
+            <!-- Call input student information function and get returned values -->
+            <output expression="&quot;===== INPUT STUDENT INFORMATION MODULE =====&quot;" newline="True"/>
+            <output expression="&quot;Enter Student Name:&quot;" newline="True"/>
+            <input variable="Name"/>
+            <output expression="&quot;Enter ID Number:&quot;" newline="True"/>
+            <input variable="ID"/>
+            <output expression="&quot;Enter Course:&quot;" newline="True"/>
+            <input variable="Course"/>
+            <output expression="&quot;Enter Year Level:&quot;" newline="True"/>
+            <input variable="YearLevel"/>
+
+            <!-- Call input grades function and get returned values -->
+            <output expression="&quot;===== INPUT GRADES MODULE =====&quot;" newline="True"/>
+            <output expression="&quot;Enter Grade 1 (0-100):&quot;" newline="True"/>
+            <input variable="Grade1"/>
+            <while expression="Grade1 &lt; 0 OR Grade1 &gt; 100">
+                <output expression="&quot;Invalid input. Grade must be between 0 and 100. Try again.&quot;" newline="True"/>
+                <input variable="Grade1"/>
+            </while>
+
+            <output expression="&quot;Enter Grade 2 (0-100):&quot;" newline="True"/>
+            <input variable="Grade2"/>
+            <while expression="Grade2 &lt; 0 OR Grade2 &gt; 100">
+                <output expression="&quot;Invalid input. Grade must be between 0 and 100. Try again.&quot;" newline="True"/>
+                <input variable="Grade2"/>
+            </while>
+
+            <output expression="&quot;Enter Grade 3 (0-100):&quot;" newline="True"/>
+            <input variable="Grade3"/>
+            <while expression="Grade3 &lt; 0 OR Grade3 &gt; 100">
+                <output expression="&quot;Invalid input. Grade must be between 0 and 100. Try again.&quot;" newline="True"/>
+                <input variable="Grade3"/>
+            </while>
+
+            <!-- Call compute average function and get returned values -->
+            <output expression="&quot;===== COMPUTE GENERAL AVERAGE MODULE =====&quot;" newline="True"/>
+            <assign variable="Average" expression="(Grade1 + Grade2 + Grade3) / 3.0"/>
+            <output expression="&quot;Computing average...&quot;" newline="True"/>
+
+            <if expression="Average &gt;= 75">
+                <then>
+                    <assign variable="Remarks" expression="&quot;PASSED&quot;"/>
+                </then>
+                <else>
+                    <assign variable="Remarks" expression="&quot;FAILED&quot;"/>
+                </else>
+            </if>
+            <output expression="&quot;Average computed successfully.&quot;" newline="True"/>
+
+            <!-- Call display summary function -->
+            <output expression="&quot;===== DISPLAY STUDENT SUMMARY MODULE =====&quot;" newline="True"/>
+            <output expression="&quot;----- STUDENT SUMMARY -----&quot;" newline="True"/>
+            <output expression="&quot;Name: &quot; &amp; Name" newline="True"/>
+            <output expression="&quot;ID: &quot; &amp; ID" newline="True"/>
+            <output expression="&quot;Course: &quot; &amp; Course" newline="True"/>
+            <output expression="&quot;Year Level: &quot; &amp; YearLevel" newline="True"/>
+            <output expression="&quot;Grade 1: &quot; &amp; ToString(Grade1)" newline="True"/>
+            <output expression="&quot;Grade 2: &quot; &amp; ToString(Grade2)" newline="True"/>
+            <output expression="&quot;Grade 3: &quot; &amp; ToString(Grade3)" newline="True"/>
+            <output expression="&quot;Average: &quot; &amp; ToString(Average)" newline="True"/>
+            <output expression="&quot;Remarks: &quot; &amp; Remarks" newline="True"/>
+        </body>
+    </function>
+</flowgorithm>

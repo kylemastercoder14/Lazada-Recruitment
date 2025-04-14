@@ -7,6 +7,7 @@ import {
   CreditCard,
   LogOut,
   Sparkles,
+  User,
 } from "lucide-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -29,6 +30,7 @@ import { logout } from "@/actions/admin";
 import AlertModal from "@/components/ui/alert-modal";
 import React from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export function NavUser({
   user,
@@ -36,15 +38,17 @@ export function NavUser({
   user: {
     name: string;
     username: string;
+    profileImage: string | null;
   };
 }) {
+  const router = useRouter();
   const [open, setOpen] = React.useState(false);
   const { isMobile } = useSidebar();
   const handleLogout = async () => {
     await logout();
     toast.success("You have been logged out.");
     setTimeout(() => {
-      window.location.href = "/admin";
+      router.push("/admin");
     }, 2000);
   };
 
@@ -65,7 +69,10 @@ export function NavUser({
                 className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
               >
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarFallback className="rounded-lg">LA</AvatarFallback>
+                  <AvatarImage src={user.profileImage} />
+                  <AvatarFallback className="rounded-lg">
+                    {user.name.charAt(0)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{user.name}</span>
@@ -83,7 +90,10 @@ export function NavUser({
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
-                    <AvatarFallback className="rounded-lg">LA</AvatarFallback>
+                    <AvatarImage src={user.profileImage} />
+                    <AvatarFallback className="rounded-lg">
+                      {user.name.charAt(0)}
+                    </AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
                     <span className="truncate font-semibold">{user.name}</span>
@@ -91,6 +101,10 @@ export function NavUser({
                   </div>
                 </div>
               </DropdownMenuLabel>
+              <DropdownMenuItem onClick={() => router.push("/admin/profile")}>
+                <User />
+                Profile
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setOpen(true)}>
                 <LogOut />
                 Log out
