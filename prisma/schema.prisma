@@ -23,6 +23,7 @@ model JobApplicant {
   name                 String
   email                String  @unique
   age                  Int
+  birthdate            String?
   sex                  String
   address              String
   contactNumber        String
@@ -72,6 +73,7 @@ model JobApplication {
   positionApplied String
   applicationDate DateTime
   status          String       @default("Pending")
+  isArchived      Boolean     @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -197,10 +199,11 @@ model ApplicantTrainingScore {
 }
 
 model NewsAnnouncements {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  imageUrl    String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id             String   @id @default(cuid())
+  title          String
+  description    String
+  imageUrl       String?
+  expirationDate String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

@@ -1,6 +1,6 @@
 import Heading from "@/components/ui/heading";
 import db from "@/lib/db";
-import { format } from "date-fns";
+import { format, differenceInDays } from "date-fns";
 import React from "react";
 import { NewsAnnouncementsColumn } from "./_components/column";
 import NewsAnnouncementsClient from "./_components/client";
@@ -16,12 +16,22 @@ const NewsAnnouncements = async () => {
   });
 
   const formattedData: NewsAnnouncementsColumn[] = datas.map((item) => {
+    const expiresInDays = item.expirationDate
+      ? differenceInDays(new Date(item.expirationDate), new Date())
+      : null;
+
     return {
       id: item.id,
       title: item.title,
       imageUrl: item.imageUrl || "N/A",
       description: item.description,
       createdAt: format(item.createdAt, "MMMM dd, yyyy"),
+      expiresIn:
+        expiresInDays !== null
+          ? expiresInDays > 0
+            ? `Expires in ${expiresInDays} day${expiresInDays > 1 ? "s" : ""}`
+            : "Expired"
+          : "No expiration",
     };
   });
   return (

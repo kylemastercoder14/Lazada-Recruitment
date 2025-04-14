@@ -6,8 +6,14 @@ export const createNewsAnnouncement = async (data: {
   title: string;
   description: string;
   imageUrl: string;
+  expirationDate: string;
 }) => {
-  if (!data.title || !data.description || !data.imageUrl) {
+  if (
+    !data.title ||
+    !data.description ||
+    !data.imageUrl ||
+    !data.expirationDate
+  ) {
     return { error: "All fields are required" };
   }
 
@@ -17,6 +23,7 @@ export const createNewsAnnouncement = async (data: {
         title: data.title,
         description: data.description,
         imageUrl: data.imageUrl,
+        expirationDate: data.expirationDate,
       },
     });
     return { success: "News and announcement created successfully" };
@@ -31,10 +38,16 @@ export const updateNewsAnnouncement = async (
     title: string;
     description: string;
     imageUrl: string;
+    expirationDate: string;
   },
   id: string
 ) => {
-  if (!data.title || !data.description || !data.imageUrl) {
+  if (
+    !data.title ||
+    !data.description ||
+    !data.imageUrl ||
+    !data.expirationDate
+  ) {
     return { error: "All fields are required" };
   }
 
@@ -47,6 +60,7 @@ export const updateNewsAnnouncement = async (
         title: data.title,
         description: data.description,
         imageUrl: data.imageUrl,
+        expirationDate: data.expirationDate,
       },
     });
     return { success: "News and announcement updated successfully" };

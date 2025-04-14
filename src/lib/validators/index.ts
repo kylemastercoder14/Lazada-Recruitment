@@ -8,6 +8,7 @@ export const personalInfoSchema = z.object({
     .string()
     .min(1, "Email address is Required")
     .email("Invalid email address"),
+  birthdate: z.string().min(1, "Birthdate is Required"),
   age: z.coerce.number().min(18, "You must be at least 18 years old"),
   sex: z.string().min(1, { message: "Sex is required" }),
   houseNumber: z.string().min(1, { message: "House number is required" }),

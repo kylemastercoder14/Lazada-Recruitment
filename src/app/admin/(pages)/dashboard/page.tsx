@@ -164,6 +164,23 @@ const Page = async () => {
 
   return (
     <div className="p-8 flex-1 pt-6">
+      <div className="flex items-center gap-2 mb-5">
+        <b>Legend:</b>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center text-sm gap-2">
+            <div className="bg-green-600 size-3 rounded-full"></div>
+            <p>Passed</p>
+          </div>
+          <div className="flex items-center text-sm gap-2">
+            <div className="bg-destructive size-3 rounded-full"></div>
+            <p>Failed</p>
+          </div>
+          <div className="flex items-center text-sm gap-2">
+            <div className="bg-primary size-3 rounded-full"></div>
+            <p>Pending/Under Review</p>
+          </div>
+        </div>
+      </div>
       <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
         <StatsCard
           title="Number of Applicants"
@@ -227,7 +244,20 @@ const Page = async () => {
         <MonthlyUsersChart
           passed={successfulMonthly}
           failed={failedMonthly}
-          labels={["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]}
+          labels={[
+            "Jan",
+            "Feb",
+            "Mar",
+            "Apr",
+            "May",
+            "Jun",
+            "Jul",
+            "Aug",
+            "Sep",
+            "Oct",
+            "Nov",
+            "Dec",
+          ]}
         />
       </div>
     </div>

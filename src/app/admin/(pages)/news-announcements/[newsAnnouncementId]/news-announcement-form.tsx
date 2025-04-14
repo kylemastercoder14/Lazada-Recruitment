@@ -29,6 +29,7 @@ const formSchema = z.object({
   title: z.string().min(1, { message: "Title is required" }),
   imageUrl: z.string().min(1, { message: "Image URL is required" }),
   description: z.string().min(1, { message: "Description is required" }),
+  expirationDate: z.string().min(1, { message: "Expiration date is required" }),
 });
 
 const NewsAnnouncementForm = ({
@@ -51,6 +52,7 @@ const NewsAnnouncementForm = ({
       title: initialData?.title || "",
       imageUrl: initialData?.imageUrl || "",
       description: initialData?.description || "",
+      expirationDate: initialData?.expirationDate || "",
     },
   });
 
@@ -127,6 +129,20 @@ const NewsAnnouncementForm = ({
                       defaultValue={field.value}
                       onImageUpload={field.onChange}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="expirationDate"
+              disabled={loading}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Expiration Date</FormLabel>
+                  <FormControl>
+                    <Input type='date' placeholder="Enter expiration date" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

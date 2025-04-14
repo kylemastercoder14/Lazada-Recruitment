@@ -337,3 +337,35 @@ export const getScheduleByDate = async (data: { date: string }) => {
     return { error: "Failed to get scheduled times" };
   }
 };
+
+export const archiveApplicationManagement = async (id: string) => {
+  if (!id) {
+    return { error: "No ID provided" };
+  }
+
+  try {
+    const application = await db.jobApplication.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!application) {
+      return { error: "Application not found" };
+    }
+
+    await db.jobApplication.update({
+      where: {
+        id: id,
+      },
+      data: {
+        isArchived: true,
+      },
+    });
+
+    return { success: "Application archived successfully" };
+  } catch (error) {
+    console.error("Error archiving application:", error);
+    return { error: "Failed to archive application" };
+  }
+};

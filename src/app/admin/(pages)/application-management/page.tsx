@@ -7,6 +7,9 @@ import ApplicationManagementClient from "./_components/client";
 
 const ApplicationManagement = async () => {
   const datas = await db.jobApplication.findMany({
+    where: {
+      isArchived: false,
+    },
     orderBy: {
       createdAt: "desc",
     },

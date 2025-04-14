@@ -22,8 +22,21 @@ const PersonalInfo = () => {
   const { nextStep, formData, setPersonalInfo } = useApplicationAppStore();
   const [errors, setErrors] = useState<any>({});
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setErrors((prev: any) => ({ ...prev, [e.target.name]: "" }));
-    setPersonalInfo({ [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setErrors((prev: any) => ({ ...prev, [name]: "" }));
+
+    if (name === "birthdate") {
+      const birthDate = new Date(value);
+      const today = new Date();
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+      setPersonalInfo({ birthdate: value, age: age });
+    } else {
+      setPersonalInfo({ [name]: value });
+    }
   };
   const handleImageUpload = (url: string) => {
     setPersonalInfo({ profileImage: url });
@@ -171,7 +184,30 @@ const PersonalInfo = () => {
             </div>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 mt-5 gap-6">
+        <div className="grid md:grid-cols-3 mt-5 gap-6">
+          <div className="space-y-1">
+            <Label
+              className={`text-sm uppercase ${
+                errors.birthdate ? "text-red-500" : "text-gray-900"
+              }`}
+            >
+              Birthdate <span className="text-red-500">*</span>
+            </Label>
+            <Input
+              type="date"
+              required
+              placeholder="Enter birthdate"
+              name="birthdate"
+              value={formData.personalInfo.birthdate}
+              className={`${
+                errors.birthdate ? "border-red-500 focus:ring-red-500" : ""
+              }`}
+              onChange={handleChange}
+            />
+            {errors.birthdate && (
+              <p className="text-red-500 text-sm">{errors.birthdate}</p>
+            )}
+          </div>
           <div className="space-y-1">
             <Label
               className={`text-sm uppercase ${
@@ -186,10 +222,10 @@ const PersonalInfo = () => {
               placeholder="Enter age"
               name="age"
               value={formData.personalInfo.age}
+              readOnly
               className={`${
                 errors.age ? "border-red-500 focus:ring-red-500" : ""
               }`}
-              onChange={handleChange}
             />
             {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
           </div>

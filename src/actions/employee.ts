@@ -19,6 +19,7 @@ export const createEmployee = async (formData: any) => {
       data: {
         name: fullName,
         email: formData.personalInfo.email,
+        birthdate: formData.personalInfo.birthdate,
         age: parseInt(formData.personalInfo.age), // Convert to integer
         sex: formData.personalInfo.sex,
         address: `${formData.personalInfo.houseNumber}, ${formData.personalInfo.barangay}, ${formData.personalInfo.municipality}, ${formData.personalInfo.province}, ${formData.personalInfo.region}, ${formData.personalInfo.zipCode}`,

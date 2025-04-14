@@ -14,6 +14,7 @@ export type NewsAnnouncementsColumn = {
   imageUrl: string;
   description: string;
   createdAt: string;
+  expiresIn: string;
 };
 
 export const columns: ColumnDef<NewsAnnouncementsColumn>[] = [
@@ -40,8 +41,8 @@ export const columns: ColumnDef<NewsAnnouncementsColumn>[] = [
     ),
   },
   {
-    accessorKey: "createdAt",
-    header: "Date Created",
+    accessorKey: "expiresIn",
+    header: "Expires In",
   },
   {
     id: "actions",
