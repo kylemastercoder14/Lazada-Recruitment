@@ -8,7 +8,7 @@ const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
   const { admin } = await getAdminAccount();
   return (
     <SidebarProvider>
-      <AppSidebar admin={admin} />
+      {admin && <AppSidebar admin={admin} />}
       <SidebarInset>
         <Header />
         {children}
