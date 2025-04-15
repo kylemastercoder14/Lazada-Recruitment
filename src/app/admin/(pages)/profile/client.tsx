@@ -83,6 +83,7 @@ const ProfileClient = ({ user }: { user: Admin | null }) => {
         {isEditing && (
           <div className="flex items-end">
             <ImageUpload
+            className='w-[200px]'
               defaultValue={user?.profileImage || ""}
               onImageUpload={(url: string) => {
                 if (url) {

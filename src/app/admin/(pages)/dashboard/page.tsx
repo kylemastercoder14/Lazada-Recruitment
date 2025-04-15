@@ -4,7 +4,7 @@ import db from "@/lib/db";
 import { startOfYear, endOfYear, subYears } from "date-fns";
 import MonthlyUsersChart from "@/components/chart-area";
 
-const getCountForYear = async (status?: "Passed" | "Failed") => {
+const getCountForYear = async (status?: "Passed" | "Failed" | "Pending") => {
   const now = new Date();
   const thisYearStart = startOfYear(now);
   const thisYearEnd = endOfYear(now);
@@ -148,6 +148,7 @@ const Page = async () => {
   const applicant = await getCountForYear();
   const successful = await getCountForYear("Passed");
   const failed = await getCountForYear("Failed");
+  const pending = await getCountForYear("Pending");
 
   const successfulMonthly = await getMonthlyCounts("Passed");
   const failedMonthly = await getMonthlyCounts("Failed");
@@ -161,6 +162,7 @@ const Page = async () => {
     successful.previous
   );
   const failedDiff = getPercentageDiff(failed.current, failed.previous);
+  const pendingDiff = getPercentageDiff(pending.current, pending.previous);
 
   return (
     <div className="p-8 flex-1 pt-6">
@@ -181,8 +183,9 @@ const Page = async () => {
           </div>
         </div>
       </div>
-      <div className="grid lg:grid-cols-3 grid-cols-1 gap-5">
+      <div className="grid lg:grid-cols-4 grid-cols-1 gap-5">
         <StatsCard
+          color="bg-white"
           title="Number of Applicants"
           data={applicant.current.toString()}
           description="Compared to last year"
@@ -202,6 +205,7 @@ const Page = async () => {
           )}
         />
         <StatsCard
+          color="bg-green-600"
           title="Successful Candidates"
           data={successful.current.toString()}
           description="Compared to last year"
@@ -221,6 +225,7 @@ const Page = async () => {
           )}
         />
         <StatsCard
+          color="bg-destructive"
           title="Failed Applicants"
           data={failed.current.toString()}
           description="Compared to last year"
@@ -237,6 +242,26 @@ const Page = async () => {
             failedDiff.trend,
             failed.current,
             failed.previous
+          )}
+        />
+        <StatsCard
+          color="bg-primary"
+          title="Pending Applicants"
+          data={pending.current.toString()}
+          description="Compared to last year"
+          trendUp={
+            pendingDiff.trend === "up"
+              ? true
+              : pendingDiff.trend === "down"
+                ? false
+                : null
+          }
+          percentage={pendingDiff.percentage}
+          recommendation={getRecommendation(
+            "Pending applicants",
+            pendingDiff.trend,
+            pending.current,
+            pending.previous
           )}
         />
       </div>

@@ -46,7 +46,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <View className="w-4 h-4" />
           View
         </Button>
-        {(data.status === "Failed" || data.status === "Pending") && (
+        {(data.status === "Failed") && (
           <Button
             variant="destructive"
             size="sm"

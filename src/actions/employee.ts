@@ -129,18 +129,28 @@ export const submitAnswers = async (payload: any) => {
 export const submitEvaluations = async (payload: any[]) => {
   try {
     for (const entry of payload) {
+      const existing = await db.applicantAnswer.findUnique({
+        where: {
+          id: entry.applicantAnswerId,
+        },
+      });
+
+      if (!existing) {
+        console.warn("Record not found:", entry);
+        continue; // skip this one
+      }
+
       await db.applicantAnswer.update({
+        where: {
+          id: entry.applicantAnswerId,
+        },
         data: {
           status: entry.status,
           reason: entry.feedback,
         },
-        where: {
-          jobApplicantId: entry.jobApplicantId,
-          questionId: entry.questionId,
-          id: entry.applicantAnswerId,
-        },
       });
     }
+
     return { success: "Evaluation submitted successfully." };
   } catch (error) {
     console.error("Error submitting evaluations:", error);

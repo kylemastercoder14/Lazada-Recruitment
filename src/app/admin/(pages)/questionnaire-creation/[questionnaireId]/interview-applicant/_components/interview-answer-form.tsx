@@ -44,16 +44,20 @@ const InterviewAnswerForm = ({
     e.preventDefault();
     setIsLoading(true);
 
-    const payload = questionnaire.question.map((question: any) => {
-      const applicantAnswer = question.applicantAnswer?.[0] || null;
-      return {
-        questionId: question.id,
-        applicantAnswerId: applicantAnswer ? applicantAnswer.id : null, // Handle undefined
-        status: statusMap[question.id] || "",
-        feedback: feedbackMap[question.id] || "",
-        jobApplicantId: applicant.id,
-      };
-    });
+    const payload = questionnaire.question
+      .map((question: any) => {
+        const applicantAnswer = question.applicantAnswer?.[0];
+        if (!applicantAnswer) return null;
+
+        return {
+          questionId: question.id,
+          applicantAnswerId: applicantAnswer.id,
+          status: statusMap[question.id] || "",
+          feedback: feedbackMap[question.id] || "",
+          jobApplicantId: applicant.id,
+        };
+      })
+      .filter(Boolean);
 
     if (
       Object.values(statusMap).includes("Failed") &&

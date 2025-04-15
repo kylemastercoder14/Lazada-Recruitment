@@ -16,10 +16,10 @@ const Circle = ({
       <div
         className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border-2 sm:border-4 select-none transition-colors duration-300 ease-in-out ${
           step === currentIndex
-            ? "text-blue-600 border-blue-600"
+            ? "text-green-600 border-green-600"
             : step < currentIndex
-              ? "bg-white border-gray-300 text-gray-500"
-              : "bg-blue-600 border-blue-600 text-white"
+              ? "bg-white border-primary text-gray-500"
+              : "bg-green-600 border-green-600 text-white"
         }`}
       >
         {step >= currentIndex ? (
@@ -46,7 +46,7 @@ const Circle = ({
   );
 };
 
-const ProgressBar = ({ step }: { step: number }) => {
+const ProgressBar = ({ step, status }: { step: number; status?: string }) => {
   const steps = [
     "Application Form",
     "Video Training",
@@ -65,7 +65,7 @@ const ProgressBar = ({ step }: { step: number }) => {
             <div className="flex-grow h-[2px] sm:h-1 mx-2 relative">
               <div className="absolute top-0 left-0 h-full w-full bg-gray-300" />
               <div
-                className={`absolute top-0 left-0 h-full bg-blue-600 transition-transform duration-300 ease-in-out origin-left ${
+                className={`absolute top-0 left-0 h-full bg-green-600 transition-transform duration-300 ease-in-out origin-left ${
                   step > index + 1 ? "w-full" : "w-0"
                 }`}
               />

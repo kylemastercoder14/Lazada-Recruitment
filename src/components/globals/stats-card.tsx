@@ -17,7 +17,8 @@ const StatsCard = ({
   description,
   trendUp,
   percentage,
-  recommendation
+  recommendation,
+  color,
 }: {
   title: string;
   data: string;
@@ -25,19 +26,23 @@ const StatsCard = ({
   trendUp: boolean | null;
   percentage: string;
   recommendation: string;
+  color: string;
 }) => {
   const TrendIcon =
     trendUp === null ? MinusIcon : trendUp ? TrendingUpIcon : TrendingDownIcon;
 
   return (
-    <Card className="@container/card">
+    <Card>
       <CardHeader className="relative">
         <CardDescription>{title}</CardDescription>
         <CardTitle className="@[250px]/card:text-3xl text-2xl font-semibold tabular-nums">
           {data}
         </CardTitle>
         <div className="absolute right-4 top-4">
-          <Badge variant="outline" className="flex gap-1 rounded-lg text-xs">
+          <Badge
+            variant="outline"
+            className={`flex ${color} gap-1 rounded-lg text-xs text-white`}
+          >
             <TrendIcon className="h-4 w-4" />
             {percentage}
           </Badge>
@@ -47,9 +52,7 @@ const StatsCard = ({
         <div className="line-clamp-1 flex gap-2 font-medium">
           {description} <TrendIcon className="h-4 w-4" />
         </div>
-		<div className="text-muted-foreground">
-            {recommendation}
-          </div>
+        <div className="text-muted-foreground">{recommendation}</div>
       </CardFooter>
     </Card>
   );
