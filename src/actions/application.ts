@@ -369,3 +369,35 @@ export const archiveApplicationManagement = async (id: string) => {
     return { error: "Failed to archive application" };
   }
 };
+
+export const retrieveApplicationManagement = async (id: string) => {
+  if (!id) {
+    return { error: "No ID provided" };
+  }
+
+  try {
+    const application = await db.jobApplication.findFirst({
+      where: {
+        id: id,
+      },
+    });
+
+    if (!application) {
+      return { error: "Application not found" };
+    }
+
+    await db.jobApplication.update({
+      where: {
+        id: id,
+      },
+      data: {
+        isArchived: false,
+      },
+    });
+
+    return { success: "Application retrieved successfully" };
+  } catch (error) {
+    console.error("Error retrieving application:", error);
+    return { error: "Failed to retrieve application" };
+  }
+};

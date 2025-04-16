@@ -14,6 +14,7 @@ export type ApplicationManagementColumn = {
   name: string;
   imageUrl: string;
   status: string;
+  isArchived: boolean;
   createdAt: string;
 };
 

@@ -54,9 +54,12 @@
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.3.0",
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
     "input-otp": "^1.2.4",
     "jose": "^5.9.6",
     "jsonwebtoken": "^9.0.2",
+    "jspdf": "^3.0.1",
     "lucide-react": "^0.453.0",
     "next": "15.0.0",
     "next-themes": "^0.3.0",
@@ -80,6 +83,7 @@
     "zustand": "^5.0.2"
   },
   "devDependencies": {
+    "@types/file-saver": "^2.0.7",
     "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
     "@types/nodemailer": "^6.4.17",

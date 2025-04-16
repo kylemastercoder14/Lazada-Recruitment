@@ -185,7 +185,7 @@ const Page = async () => {
       </div>
       <div className="grid lg:grid-cols-4 grid-cols-1 gap-5">
         <StatsCard
-          color="bg-white"
+          color="bg-black"
           title="Number of Applicants"
           data={applicant.current.toString()}
           description="Compared to last year"

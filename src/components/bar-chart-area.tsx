@@ -5,13 +5,12 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
-import { Line } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import {
   Card,
   CardContent,
@@ -23,14 +22,13 @@ import {
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
   Legend
 );
 
-type MonthlyUsersChartProps = {
+type MonthlyUsersBarChartProps = {
   passed: number[];
   failed: number[];
   labels: string[];
@@ -47,29 +45,30 @@ const options = {
       display: false,
     },
   },
+  scales: {
+    y: {
+      beginAtZero: true,
+    },
+  },
 };
 
-export default function MonthlyUsersChart({
+export default function MonthlyUsersBarChart({
   passed,
   failed,
   labels,
-}: MonthlyUsersChartProps) {
+}: MonthlyUsersBarChartProps) {
   const data = {
     labels,
     datasets: [
       {
         label: "Passed",
         data: passed,
-        borderColor: "#10b981",
         backgroundColor: "#10b981",
-        tension: 0.3,
       },
       {
         label: "Failed",
         data: failed,
-        borderColor: "#800020",
         backgroundColor: "#800020",
-        tension: 0.3,
       },
     ],
   };
@@ -79,11 +78,11 @@ export default function MonthlyUsersChart({
       <CardHeader>
         <CardTitle>Applicants Overview</CardTitle>
         <CardDescription>
-          Number of Successful and Failed Applicants
+          Monthly Passed and Failed Applicants
         </CardDescription>
       </CardHeader>
       <CardContent className="w-full h-[400px]">
-        <Line data={data} options={options} />
+        <Bar data={data} options={options} />
       </CardContent>
     </Card>
   );
