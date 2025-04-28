@@ -24,13 +24,23 @@ const Page = () => {
     "December",
   ];
 
+  const date = new Date();
+  const dateToday = date.toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+  });
+
   //   uses printify
   useEffect(() => {
     window.print();
   }, []);
   return (
-    <div className="p-8">
-      <h1 className="text-2xl font-bold text-center mb-4">Monthly Report</h1>
+    <div className="p-5">
+      <div className="flex items-center justify-between">
+        <h1 className="text-xl font-bold text-center mb-4">Monthly Report</h1>
+        <p>Date: {dateToday}</p>
+      </div>
       <table className="w-full border border-collapse border-gray-300">
         <thead>
           <tr className="bg-gray-100">
@@ -53,6 +63,11 @@ const Page = () => {
           ))}
         </tbody>
       </table>
+      <div className="flex items-center flex-col justify-center mt-5">
+        <p>Prepared By:</p>
+        <p className="mt-2 border-t border-black pt-1">Marco Bernal</p>
+        <p className="text-sm">HR Admin</p>
+      </div>
     </div>
   );
 };

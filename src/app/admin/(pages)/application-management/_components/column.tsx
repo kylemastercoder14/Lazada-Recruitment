@@ -20,6 +20,20 @@ export type ApplicationManagementColumn = {
 
 export const columns: ColumnDef<ApplicationManagementColumn>[] = [
   {
+    accessorKey: "id",
+    header: ({ column }) => {
+      return (
+        <span
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          className="cursor-pointer flex items-center"
+        >
+          Applicant ID
+          <ChevronsUpDown className="ml-2 h-4 w-4 no-print" />
+        </span>
+      );
+    },
+  },
+  {
     accessorKey: "name",
     header: ({ column }) => {
       return (

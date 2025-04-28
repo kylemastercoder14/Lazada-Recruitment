@@ -94,7 +94,7 @@ const ReportGenerations = async () => {
               className="flex items-center gap-2"
               target="_blank"
               href={{
-                pathname: "/admin/report-generations/generate-report",
+                pathname: "/admin/generate-report",
                 query: {
                   passed: JSON.stringify(successfulMonthly),
                   failed: JSON.stringify(failedMonthly),
