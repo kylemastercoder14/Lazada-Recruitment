@@ -63,6 +63,7 @@ const Page = () => {
           ))}
         </tbody>
       </table>
+      <p className='text-center mt-2 italic'>I hereby certified that the above records are true and correct.</p>
       <div className="flex items-center flex-col justify-center mt-5">
         <p>Prepared By:</p>
         <p className="mt-2 border-t border-black pt-1">Marco Bernal</p>
